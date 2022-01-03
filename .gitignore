@@ -1,0 +1,4 @@
+.nvim-msb/
+.venv-nvim-setup/
+src/__pycache__/
+*__pycache__*
