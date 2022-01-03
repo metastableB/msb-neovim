@@ -19,6 +19,8 @@ source ./.venv-nvim-setup/bin/activate
 python3 install.py
 ```
 
+For colored log outputs, set `CLOG_COLOR_ON=1`.
+
 TODO: Wrap these into single `setup.sh` script.
 
 # Explanation
