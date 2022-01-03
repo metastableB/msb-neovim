@@ -1,4 +1,4 @@
-# Neovim-MetastableB
+# MSB-Neovim
 
 The objective is to use learnings from `init.vim` version 0.1 and create a
 portable neovim version with all features working. If possible, I also want to
