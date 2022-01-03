@@ -323,7 +323,7 @@ def setup_nvchad(cfg, overwrite=False):
     cdir = os.path.abspath(os.path.join(outf, 'lua/custom'))
     lg.info("Copying custom configurations")
     if os.path.exists(cdir):
-        lg.warning("Existing custom settings found. Removing it.")
+        lg.warning("Existing custom settings found. Replacing it.")
         shutil.rmtree(cdir)
     shutil.copytree('./custom', cdir)
     cfg.ap_nvchad = os.path.abspath(outf)

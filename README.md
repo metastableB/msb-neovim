@@ -30,12 +30,10 @@ what is unavailable.
     into `$INSTALL_DIR/lib`
   - *STEP 4* : Install `fd` precompiled binaries. This again goes into
     `$INSTALL_DIR/lib`
-  - *STEP 4* : Set up `NvChad`. NvChad is a set of minimal configuration files
+  - *STEP 5* : Set up `NvChad`. NvChad is a set of minimal configuration files
     and plugins that we will use as our base configuration. The scripts are all
     written in Lua and supports easy customization. We clone `NvChad` to
     `$INSTALL_DIR/config/` which is where all our plugins will work from.
-
-
 
 
 # Bugs, TODOs and Feature Requests
@@ -59,7 +57,11 @@ what is unavailable.
 
 # Usage Documentation
 
-## Plugin Specific Notes
+## (Self-contained) Plugin Notes
+
+`NvChad` ships with a set of self-contained plugins that does not require any
+external intervention or dependencies. These are a good set of defaults and
+provide a good base set of settings for your working environment.
 
 **1. Telescope (Fuzzy file, buffer, code, grep everything)**
 
@@ -133,16 +135,43 @@ Tree based file explorer side-bar.
   blocks, whiel loops etc)
 - *nvim-comment*: Toggles comments.
 
-**5. TODO Document/TEST THESE**
+## LSP Plugins
 
+Requires installation of external programs. These are not shipped with this
+package and the desired language support needs to be installed on a case to
+case basis.
 
-Various LSP plugins#
+Neovim supports the Language Server Protocol (LSP), which means it acts as a
+client to language servers and includes a Lua framework `vim.lsp` for building
+enhanced LSP tools. LSP facilitates features like:
 
-- *nvim-lspconfig*: Used for configuring lsp servers etc
-- *nvim-cmp*: Completion menu
-- *lsp-signature.nvim*: LSP signature hint when you type
-- *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items.
+  - go-to-definition
+  - find-references
+  - hover
+  - completion
+  - rename
+  - format
+  - refactor
 
+Neovim provides an interface for all of these features, and the language server
+client is designed to be highly extensible to allow plugins to integrate
+language server features which are not yet present in Neovim core such as
+auto-completion (as opposed to manual completion with omnifunc) and snippet
+integration.
+
+Configuring LSP is not trivial though and does require some work, especially in
+setting up language dependent LSP servers. Various plugins already included in
+`NvChad` helps in this regard. These plugins still depend on external servers
+being availabel.
+
+- *nvim-lspconfig*: A collection of common configurations for Neovim's built-in
+  language server client. This plugin allows for declaratively configuring,
+  launching, and initializing language servers you have installed on your
+  system.
+- *nvim-cmp*: A completion engine plugin for neovim written in Lua. Completion
+  sources are installed from external repositories and "sourced".
+- *lsp-signature.nvim*: Show function signature when you type.
+- *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items window.
 
 
 ## Debugging
