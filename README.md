@@ -39,9 +39,23 @@ what is unavailable.
 - [ ] The theme picker using telescope does not seem to work. When setting a
   theme, we seem to be encountering an error.
 
-# TODOs
+# TODOs and Feature Requests
 
 - [ ] Clean default settings and plugin configurations.
 - [ ] Verify each and every existing (pre-packaged) plugin is working properly
 - [ ] Configure packaged plugins.
 - [ ] Start extending with more plugins
+- [ ] Add a telescope list to search lablels and tags (`:TODO: :HELP:` etc)
+
+# Key-Binds
+
+## Telescope (Fuzzy file, buffer, code, grep everything)
+
+| Keybind      | Description                          |
+|--------------|--------------------------------------|
+| `<leader>fb` | Search in open buffers               |
+| `<leader>ff` | Search in files in working direcotry |
+| `<leader>fa` | Searchin hidden files                |
+| `<leader>fh` | Search in neovim help-tags           |
+| `<leader>fw` | Live grep search                     |
+| `<leader>th` | Theme picker                         |
