@@ -1,9 +1,25 @@
 # MSB-Neovim
 
-The objective is to use learnings from `init.vim` version 0.1 and create a
-portable neovim version with all features working. If possible, I also want to
-learn Lua on the way and implement asserts to establish what is available and
-what is unavailable.
+Neovim + NvChad + custom configuraiton to make a portable, pre-compiled binary
+dependent version of Neovim with good defaults. 
+
+Supported platforms:
+
+  - [X] OSX
+  - [ ] UNIX + Bash
+  - [ ] Windows + PS
+
+# Installation  
+
+Clone this repository to your local machine. Open the folder in a terminal with bash execute the following commands.
+
+```
+./setup.sh 
+source ./.venv-nvim-setup/bin/activate
+python3 install.py
+```
+
+TODO: Wrap these into single `setup.sh` script.
 
 # Explanation
 
@@ -53,7 +69,8 @@ what is unavailable.
 - [ ] Configure packaged plugins.
 - [ ] Start extending with more plugins
 - [ ] Add a telescope list to search lablels and tags (`:TODO: :HELP:` etc)
-
+- [ ] Implement some form of workspace management/session management.
+- [ ] Port custom neovim settings from `init.vim` version 0.2.
 
 # Usage Documentation
 
