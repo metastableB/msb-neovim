@@ -5,12 +5,6 @@ portable neovim version with all features working. If possible, I also want to
 learn Lua on the way and implement asserts to establish what is available and
 what is unavailable.
 
-As for work-flow, let us try a docker based setup?
-
-
-Configurations are available in helpers.
-
-
 # Explanation
 
 1. `setup.sh`: The first script to run is the setup script `setup.sh`. Since we are
@@ -25,13 +19,23 @@ Configurations are available in helpers.
    perform a self contained isolated action.
 
   1. *STEP 1* : We setup two top level directories. A temporary directory at
-     `TEMP_DIR = /tmp/neovim-msg/` and the installation directory at
-     `INSTALL_DIR=./.neovim-msgb/`. Certain sub-directories are also created
+     `TEMP_DIR = /tmp/nvim-msb/` and the installation directory at
+     `INSTALL_DIR=./.nvim-msb/`. Certain sub-directories are also created
      but those are entirely maintained internally.
   2. *STEP 2* : Download neovim app-image. We download neovim to the
      installation directory; the correct version is downloaded based on
-     platform details stored in `helper.Config`. 
-  3. *STEP 3* : Install `ripgrip` from source.
-  3. *STEP 3* : Set up `NvChad`. NvChad is a set of minimal configuration files
+     platform details stored in `helper.Config`. We store this in
+     `$INSTALL_DIR/lib` and use a `.msbrc` file make this availabel in path.
+  3. *STEP 3* : Install `ripgrip` from source. This again goes into
+     `$INSTALL_DIR/lib`
+  4. *STEP 4* : Set up `NvChad`. NvChad is a set of minimal configuration files
      and plugins that we will use as our base configuration. The scripts are
-     all written in Lua and supports easy customization.
+     all written in Lua and supports easy customization. We clone `NvChad` to
+     `$INSTALL_DIR/config/` which is where all our plugins will work from.
+
+
+# Bugs and Things to Do 
+
+- [ ] The theme picker using telescope does not seem to work. When setting a
+  theme, we seem to be encountering an error.
+

@@ -18,6 +18,7 @@ class Config:
     SUPPORTED_PLATFORMS = ["osx"]
     DOWNLOADS_DIR_NAME = 'downloads'
     LIB_DIR_NAME = 'lib'
+    CONFIG_DIR_NAME = 'config'
     RC_FILE_NAME = '.msbrc'
     # Git download links for various packages
     GH_NVCHAD = "https://github.com/NvChad/NvChad"
@@ -42,11 +43,12 @@ class Config:
         self.downloads_dir = f
         f = os.path.join(install_dir, Config.LIB_DIR_NAME)
         self.lib_dir = f
+        f = os.path.join(install_dir, Config.CONFIG_DIR_NAME)
+        self.config_dir = f
         # Absolute paths set during installation
         self.ap_nvim = None
         self.ap_nvchad = None
         self.ap_ripgrep = None
-
 
 
 def setup_dirs(cfg):
@@ -56,18 +58,19 @@ def setup_dirs(cfg):
     lg.info(f"\tInstall directory: {cfg.install_dir}")
     lg.info(f"\tTemporary directory: {cfg.temp_dir}")
     msg = "The install directory should either be empty or should only contain"
-    msg += f": '{cfg.LIB_DIR_NAME}', '{cfg.RC_FILE_NAME}'."
+    msg += f": '{cfg.LIB_DIR_NAME}', '{cfg.RC_FILE_NAME}', "
+    msg += f" '{cfg.CONFIG_DIR_NAME}'"
     # If install directory already exists do sanity checks.
     if os.path.exists(cfg.install_dir):
         lg.info("Existing install directory found")
         curr_files = os.listdir(cfg.install_dir)
-        assert len(curr_files) <= 2, msg
+        assert len(curr_files) <= 3, msg
         if len(curr_files) > 0:
             for f in curr_files:
-                # If there is only 1 file it has to be lib_dir
                 msg_ = msg + f" Found: {f}"
-                valid = [cfg.LIB_DIR_NAME, cfg.RC_FILE_NAME]
-                assert f in valid, msg_ + "EHLO"
+                valid = [cfg.LIB_DIR_NAME, cfg.RC_FILE_NAME,
+                         cfg.CONFIG_DIR_NAME]
+                assert f in valid, msg_
     else:
         try:
             os.mkdir(cfg.install_dir)
@@ -80,6 +83,12 @@ def setup_dirs(cfg):
         except Exception as e:
             msg_ = "Exception raised when trying to create lib directory: "
             msg_ += f"{cfg.lib_dir}. Exception: "
+            lg.fail(msg_ + e)
+        try:
+            os.mkdir(cfg.config_dir)
+        except Exception as e:
+            msg_ = "Exception raised when trying to create config directory: "
+            msg_ += f"{cfg.config_dir}. Exception: "
             lg.fail(msg_ + e)
     # Install directory created. Now create temporary directory if it doesn't
     # exist.
@@ -133,7 +142,7 @@ def setup_neovim_appimg(cfg, overwrite=False):
         # have thus hard-coded that here.
         osxoutf = os.path.join(cfg.downloads_dir, 'nvim-osx64')
         if os.path.exists(osxoutf):
-            lg.warning(f"Found existing {osxoutf}.", end='')
+            lg.warning(f"Found existing {osxoutf}.")
             if overwrite:
                 lg.warning(" Removing it.")
                 shutil.rmtree(osxoutf)
@@ -221,20 +230,23 @@ def setup_ripgrep(cfg, overwrite=False):
         exe = os.path.join(dst, 'rg')
         cfg.ap_ripgrep = os.path.abspath(exe)
 
-def setup_nvimchad(cfg, overwrite=False):
+
+def setup_nvchad(cfg, overwrite=False):
     lg.info("STEP 3: Setting up NvChad config")
     url = cfg.GH_NVCHAD
-    outf = os.path.join(cfg.lib_dir, "NvChad")
+    outf = os.path.join(cfg.config_dir, 'nvim/nvchad')
     if os.path.exists(outf):
         lg.warning("Existing NvChad found")
         if overwrite:
             lg.warning("Removing it")
-            shutils.rmtree(outf)
+            shutil.rmtree(outf)
             assert not os.path.exists(outf)
     if not os.path.exists(outf):
         git("clone", url, outf)
     msg = "Internal error: NvChad not found after download"
     assert os.path.exists(outf), msg
+
+    # Copy custom stuff
     cfg.ap_nvchad = os.path.abspath(outf)
 
 def post_install_msg(cfg):
@@ -244,18 +256,24 @@ def post_install_msg(cfg):
     ripgrep = os.path.dirname(cfg.ap_ripgrep)
     msbrc = os.path.join(cfg.install_dir, cfg.RC_FILE_NAME)
     msbrc = os.path.abspath(msbrc)
+    cdir = os.path.abspath(cfg.config_dir)
     # These lines are fed to a shell-profile file (msbrc.sh) and the user is
     # expected to source them from their bashrc or equivalent profile file.
     # Settings to make neovim available globally
     scmds = f"NVIM_EXE='{exe}'" + "\n"
     scmds += f"NVIM_CONFIG_DIR='{vimrc}'" + "\n"
     # RIP-GREP
-    scmds += 'export PATH=${PATH}:' + f"'{ripgrep}'"
+    scmds += 'NPATH=${PATH}:' + f"'{ripgrep}'"
     # Neovim and Lua config
-    scmds += '\nexport LUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
+    scmds += '\nNLUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
     scmds += '${NVIM_CONFIG_DIR}/lua/?/init.lua"'
-    scmds += "\n" + 'alias msbnvim="\\"${NVIM_EXE}\\"  -u '
+    scmds += f"\nNXDG_CONFIG_HOME='{cdir}'"
+    scmds += f"\nNXDG_DATA_HOME='{cdir}'"
+    scmds += "\n" + 'alias msbnvim="env XDG_DATA_HOME=\\"'
+    scmds += '${NXDG_DATA_HOME}\\" XDG_CONFIG_HOME=\\"${NXDG_CONFIG_HOME}\\"'
+    scmds += ' LUA_PATH=\\"${NLUA_PATH}\\" PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\"   -u '
     scmds += '\\"${NVIM_CONFIG_DIR}' + '/init.lua\\""'
+    scmds += '\necho "Sourced nvim configs"'
 
     # write to settings file
     with open(msbrc, 'w') as f:
@@ -267,4 +285,7 @@ def post_install_msg(cfg):
     msg = "3. Install the plugins by running:\n"
     msg += "\tmsbnvim +'hi NormalFloat guibg=#1e222a' +PackerSync"
     lg.info(msg)
+    if cfg.platform == 'osx':
+        lg.info("NOTE: On mac, the terminal app does not support 24-bit " +
+                "colors. iTerm is a good alternative.")
 
