@@ -234,9 +234,10 @@ def setup_ripgrep(cfg, overwrite=False):
 def setup_nvchad(cfg, overwrite=False):
     lg.info("STEP 3: Setting up NvChad config")
     url = cfg.GH_NVCHAD
-    outf = os.path.join(cfg.config_dir, 'nvim/nvchad')
+    outf = os.path.join(cfg.config_dir, 'nvim/')
     if os.path.exists(outf):
-        lg.warning("Existing NvChad found")
+        lg.warning("Existing configuration found")
+        # This will also remove all plugin related settings
         if overwrite:
             lg.warning("Removing it")
             shutil.rmtree(outf)
@@ -266,14 +267,13 @@ def post_install_msg(cfg):
     # RIP-GREP
     scmds += 'NPATH=${PATH}:' + f"'{ripgrep}'"
     # Neovim and Lua config
-    scmds += '\nNLUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
-    scmds += '${NVIM_CONFIG_DIR}/lua/?/init.lua"'
+    # scmds += '\nNLUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
+    # scmds += '${NVIM_CONFIG_DIR}/lua/?/init.lua"'
     scmds += f"\nNXDG_CONFIG_HOME='{cdir}'"
     scmds += f"\nNXDG_DATA_HOME='{cdir}'"
     scmds += "\n" + 'alias msbnvim="env XDG_DATA_HOME=\\"'
     scmds += '${NXDG_DATA_HOME}\\" XDG_CONFIG_HOME=\\"${NXDG_CONFIG_HOME}\\"'
-    scmds += ' LUA_PATH=\\"${NLUA_PATH}\\" PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\"   -u '
-    scmds += '\\"${NVIM_CONFIG_DIR}' + '/init.lua\\""'
+    scmds += '  PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\" '
     scmds += '\necho "Sourced nvim configs"'
 
     # write to settings file
