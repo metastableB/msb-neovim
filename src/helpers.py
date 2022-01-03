@@ -277,11 +277,11 @@ def setup_fd(cfg, overwrite=False):
         if os.path.exists(osxoutf):
             lg.warning(f"Found existing {osxoutf}.")
             if overwrite:
-                lg.warning(" Removing it.")
+                lg.warning("Removing it.")
                 shutil.rmtree(osxoutf)
                 assert not os.path.exists(osxoutf)
             else:
-                lg.warning(" Keeping it.")
+                lg.warning("Keeping it.")
         if not os.path.exists(osxoutf):
             shutil.unpack_archive(foutf, cfg.downloads_dir)
             assert os.path.exists(osxoutf)
@@ -322,8 +322,10 @@ def setup_nvchad(cfg, overwrite=False):
     # Copy custom stuff
     cdir = os.path.abspath(os.path.join(outf, 'lua/custom'))
     lg.info("Copying custom configurations")
-    if not os.path.exists(cdir):
-        shutil.copytree('./custom', cdir)
+    if os.path.exists(cdir):
+        lg.warning("Existing custom settings found. Removing it.")
+        shutil.rmtree(cdir)
+    shutil.copytree('./custom', cdir)
     cfg.ap_nvchad = os.path.abspath(outf)
 
 

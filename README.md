@@ -26,7 +26,9 @@ what is unavailable.
     installation directory; the correct version is downloaded based on platform
     details stored in `helper.Config`. We store this in `$INSTALL_DIR/lib` and
     use a `.msbrc` file make this availabel in path.
-  - *STEP 3* : Install `ripgrip` from source. This again goes into
+  - *STEP 3* : Install `ripgrip` from precompiled binaries. This again goes
+    into `$INSTALL_DIR/lib`
+  - *STEP 4* : Install `fd` precompiled binaries. This again goes into
     `$INSTALL_DIR/lib`
   - *STEP 4* : Set up `NvChad`. NvChad is a set of minimal configuration files
     and plugins that we will use as our base configuration. The scripts are all
@@ -45,6 +47,9 @@ what is unavailable.
   Upstream shoudl ideally use `perror()` when requiring these files.
 - [ ] !BUG! Fix sidebard artifacts that shows up (next to line number) when
   working from within `tmux`
+- [ ] !BUG! When opening a file that has an associated `.swp` file on disk,
+  `nvim-tree` bugs out. A workaround for now is to just use `telescope
+  find_file`, but this bug needs to be fixed.
 - [ ] Clean default settings and plugin configurations.
 - [ ] Verify each and every existing (pre-packaged) plugin is working properly
 - [ ] Configure packaged plugins.
@@ -56,7 +61,11 @@ what is unavailable.
 
 ## Plugin Specific Notes
 
-### Telescope (Fuzzy file, buffer, code, grep everything)
+**1. Telescope (Fuzzy file, buffer, code, grep everything)**
+
+Telescope is a blazigly fast (from experience) fuzzy finder. It can search is
+all sorts of lists and can be configured to use all kinds of *finders, sorters*
+and *pickers*. The defaults provided with NvChad is pretty sweet.
 
 | Keybind      | Description                          |
 |--------------|--------------------------------------|
@@ -67,7 +76,7 @@ what is unavailable.
 | `<leader>fw` | Live grep search                     |
 | `<leader>th` | Theme picker                         |
 
-### Buffline (Buffer and minimal-Tab handling)
+**2. Buffline (Buffer and minimal-Tab handling)**
 
 Note that with the integration of bufferline, we are moving more towards the
 vim style of workflow (fixed tab-window splits + buffer groups). This may need
@@ -76,13 +85,64 @@ some getting used to.
 Open buffers are shown from the left end and tabs are shown on the right side
 of buffer line.
 
-**Future**
+*Future*
 
-- **Buffer Groups**: Buffline also supports buffer groups. This could be a
+- *Buffer Groups*: Buffline also supports buffer groups. This could be a
   better way to organize buffers. if the need be, check this out in the future.
-- **Error Indicators**: Buffline also supports visual indicators for linting
+- *Error Indicators*: Buffline also supports visual indicators for linting
   errors and such. This will be useful for `C/C++` or even large python
   projects; at a quick glance can give you info about faulty files etc.
+
+**3. Nvim-Tree (File explorere side-bar)**
+
+Tree based file explorer side-bar.
+
+| Keybind | Description                               |
+|---------|-------------------------------------------|
+| `a`     | Append (add file/directory)               |
+| `r`     | Rename file                               |
+| `y`     | Copy name to system clipboard             |
+| `Y`     | Copy relative path to system cliboard     |
+| `gy`    | Copy absolute path to sysrtem clipboard   |
+| `d`     | Delete file                               |
+| `-`     | Go to parent direcoty of current path     |
+| `s`     | Open file with default system application |
+| `<C-v>` | Open file in a vertical split             |
+| `<C-x>` | Open file in a horizontal spilt           |
+| `<C-t>` | Open file in a new tab                    |
+| `<Tab>` | Open file in preview                      |
+| `I`     | Toggle visibility of hidden items         |
+| `H`     | Toggle visibility of dot-items            |
+| `R`     | Refresh tree                              |
+
+
+**4. Others**
+
+- *dashboard-nvim* (disabled): Provides an welcome dashboard with options to
+  open existing files, previous sessions etc. Keeping it disabled for now
+- *feline.nvim*: Statusline plugin with good defaults
+- *blankline*: Adds indent lines to neovim indents
+- *nvim-base16.lua*: Manages syntax colorscheme
+- *nvim-colorizer.lua*: Colors inline hex codes and such
+- *nvim-webdev-icons*: Allows changing color of icons.
+- *gitsigns.nvim*: Super fast git decorations (the bars on the sides of files
+  showng changes) implemented purely in lua/teal.
+- *nvim-opairs*: Handle character pairs (braces, paraenthesis, ..)
+- *vim-matchup*: Not entirely sure what the workflow/use-case is but this
+  plugin makes it easy to navigate between langauge specific keywords (if-else
+  blocks, whiel loops etc)
+- *nvim-comment*: Toggles comments.
+
+**5. TODO Document/TEST THESE**
+
+
+Various LSP plugins#
+
+- *nvim-lspconfig*: Used for configuring lsp servers etc
+- *nvim-cmp*: Completion menu
+- *lsp-signature.nvim*: LSP signature hint when you type
+- *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items.
+
 
 
 ## Debugging
