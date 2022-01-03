@@ -18,7 +18,8 @@ class Config:
     SUPPORTED_PLATFORMS = ["osx"]
     DOWNLOADS_DIR_NAME = 'downloads'
     LIB_DIR_NAME = 'lib'
-    CONFIG_DIR_NAME = 'config'
+    XDG_CONFIG_DIR_NAME = 'config'
+    XDG_DATA_DIR_NAME = 'data' 
     RC_FILE_NAME = '.msbrc'
     # Git download links for various packages
     GH_NVCHAD = "https://github.com/NvChad/NvChad"
@@ -43,8 +44,10 @@ class Config:
         self.downloads_dir = f
         f = os.path.join(install_dir, Config.LIB_DIR_NAME)
         self.lib_dir = f
-        f = os.path.join(install_dir, Config.CONFIG_DIR_NAME)
-        self.config_dir = f
+        f = os.path.join(install_dir, Config.XDG_CONFIG_DIR_NAME)
+        self.xdg_config_dir = f
+        f = os.path.join(install_dir, Config.XDG_DATA_DIR_NAME)
+        self.xdg_data_dir = f
         # Absolute paths set during installation
         self.ap_nvim = None
         self.ap_nvchad = None
@@ -59,17 +62,17 @@ def setup_dirs(cfg):
     lg.info(f"\tTemporary directory: {cfg.temp_dir}")
     msg = "The install directory should either be empty or should only contain"
     msg += f": '{cfg.LIB_DIR_NAME}', '{cfg.RC_FILE_NAME}', "
-    msg += f" '{cfg.CONFIG_DIR_NAME}'"
+    msg += f" '{cfg.XDG_CONFIG_DIR_NAME}', '{cfg.XDG_DATA_DIR_NAME}'."
     # If install directory already exists do sanity checks.
     if os.path.exists(cfg.install_dir):
         lg.info("Existing install directory found")
         curr_files = os.listdir(cfg.install_dir)
-        assert len(curr_files) <= 3, msg
+        assert len(curr_files) <= 4, msg
         if len(curr_files) > 0:
             for f in curr_files:
                 msg_ = msg + f" Found: {f}"
                 valid = [cfg.LIB_DIR_NAME, cfg.RC_FILE_NAME,
-                         cfg.CONFIG_DIR_NAME]
+                         cfg.XDG_CONFIG_DIR_NAME, cfg.XDG_DATA_DIR_NAME]
                 assert f in valid, msg_
     else:
         try:
@@ -85,10 +88,16 @@ def setup_dirs(cfg):
             msg_ += f"{cfg.lib_dir}. Exception: "
             lg.fail(msg_ + e)
         try:
-            os.mkdir(cfg.config_dir)
+            os.mkdir(cfg.xdg_config_dir)
         except Exception as e:
             msg_ = "Exception raised when trying to create config directory: "
-            msg_ += f"{cfg.config_dir}. Exception: "
+            msg_ += f"{cfg.xdg_config_dir}. Exception: "
+            lg.fail(msg_ + e)
+        try:
+            os.mkdir(cfg.xdg_data_dir)
+        except Exception as e:
+            msg_ = "Exception raised when trying to create data directory: "
+            msg_ += f"{cfg.xdg_data_dir}. Exception: "
             lg.fail(msg_ + e)
     # Install directory created. Now create temporary directory if it doesn't
     # exist.
@@ -148,7 +157,7 @@ def setup_neovim_appimg(cfg, overwrite=False):
                 shutil.rmtree(osxoutf)
                 assert not os.path.exists(osxoutf)
             else:
-                lg.warning(" Keeping it.")
+                lg.warning("Keeping it.")
         if not os.path.exists(osxoutf):
             shutil.unpack_archive(foutf, cfg.downloads_dir)
             assert os.path.exists(osxoutf)
@@ -202,7 +211,7 @@ def setup_ripgrep(cfg, overwrite=False):
         xdir_name = 'ripgrep-13.0.0-x86_64-apple-darwin'
         osxoutf = os.path.join(cfg.downloads_dir, xdir_name)
         if os.path.exists(osxoutf):
-            lg.warning(f"Found existing {osxoutf}.", end='')
+            lg.warning(f"Found existing {osxoutf}.")
             if overwrite:
                 lg.warning(" Removing it.")
                 shutil.rmtree(osxoutf)
@@ -234,7 +243,7 @@ def setup_ripgrep(cfg, overwrite=False):
 def setup_nvchad(cfg, overwrite=False):
     lg.info("STEP 3: Setting up NvChad config")
     url = cfg.GH_NVCHAD
-    outf = os.path.join(cfg.config_dir, 'nvim/')
+    outf = os.path.join(cfg.xdg_config_dir, 'nvim/')
     if os.path.exists(outf):
         lg.warning("Existing configuration found")
         # This will also remove all plugin related settings
@@ -247,8 +256,9 @@ def setup_nvchad(cfg, overwrite=False):
     msg = "Internal error: NvChad not found after download"
     assert os.path.exists(outf), msg
     # Copy custom stuff
-    cdir = os.path.join(outf, 'lua/custom')
-    shutil.copytree('./custom', cdir)
+    cdir = os.path.abspath(os.path.join(outf, 'lua/custom'))
+    # if not os.path.exists(cdir):
+    #     shutil.copytree('./custom', cdir)
     cfg.ap_nvchad = os.path.abspath(outf)
 
 def post_install_msg(cfg):
@@ -258,7 +268,8 @@ def post_install_msg(cfg):
     ripgrep = os.path.dirname(cfg.ap_ripgrep)
     msbrc = os.path.join(cfg.install_dir, cfg.RC_FILE_NAME)
     msbrc = os.path.abspath(msbrc)
-    cdir = os.path.abspath(cfg.config_dir)
+    cdir = os.path.abspath(cfg.xdg_config_dir)
+    ddir = os.path.abspath(cfg.xdg_data_dir)
     # These lines are fed to a shell-profile file (msbrc.sh) and the user is
     # expected to source them from their bashrc or equivalent profile file.
     # Settings to make neovim available globally
@@ -270,10 +281,10 @@ def post_install_msg(cfg):
     # scmds += '\nNLUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
     # scmds += '${NVIM_CONFIG_DIR}/lua/?/init.lua"'
     scmds += f"\nNXDG_CONFIG_HOME='{cdir}'"
-    scmds += f"\nNXDG_DATA_HOME='{cdir}'"
+    scmds += f"\nNXDG_DATA_HOME='{ddir}'"
     scmds += "\n" + 'alias msbnvim="env XDG_DATA_HOME=\\"'
     scmds += '${NXDG_DATA_HOME}\\" XDG_CONFIG_HOME=\\"${NXDG_CONFIG_HOME}\\"'
-    scmds += '  PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\" '
+    scmds += '  PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\" " '
     scmds += '\necho "Sourced nvim configs"'
 
     # write to settings file
