@@ -10,8 +10,8 @@ local hooks = require "core.hooks"
 -- To add new plugins, use the "setup_mappings" hook,
 
 hooks.add("setup_mappings", function(map)
-   map("n", "<leader>cc", ":Telescope <CR>", opt)
-   map("n", "<leader>q", ":q <CR>", opt)
+   -- map("n", "<leader>cc", ":Telescope <CR>", opt)
+   -- map("n", "<leader>q", ":q <CR>", opt)
 end)
 
 -- NOTE : opt is a variable  there (most likely a table if you want multiple options),
@@ -23,10 +23,10 @@ end)
 -- examples below:
 
 hooks.add("install_plugins", function(use)
-   use {
-      "max397574/better-escape.nvim",
-      event = "InsertEnter",
-   }
+   -- use {
+   --    "max397574/better-escape.nvim",
+   --    event = "InsertEnter",
+   -- }
 
 end)
 
