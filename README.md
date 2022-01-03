@@ -39,3 +39,9 @@ what is unavailable.
 - [ ] The theme picker using telescope does not seem to work. When setting a
   theme, we seem to be encountering an error.
 
+# TODOs
+
+- [ ] Clean default settings and plugin configurations.
+- [ ] Verify each and every existing (pre-packaged) plugin is working properly
+- [ ] Configure packaged plugins.
+- [ ] Start extending with more plugins

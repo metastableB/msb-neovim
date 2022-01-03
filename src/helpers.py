@@ -245,8 +245,9 @@ def setup_nvchad(cfg, overwrite=False):
         git("clone", url, outf)
     msg = "Internal error: NvChad not found after download"
     assert os.path.exists(outf), msg
-
     # Copy custom stuff
+    cdir = os.path.join(outf, 'lua/custom')
+    shutil.copytree('./custom', cdir)
     cfg.ap_nvchad = os.path.abspath(outf)
 
 def post_install_msg(cfg):
