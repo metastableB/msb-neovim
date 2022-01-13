@@ -6,7 +6,7 @@ dependent version of Neovim with good defaults.
 Supported platforms:
 
   - [X] OSX
-  - [ ] UNIX + Bash
+  - [X] UNIX + Bash / WSL2
   - [ ] Windows + PS
 
 # Installation  
