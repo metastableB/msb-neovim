@@ -7,6 +7,7 @@
 local customPlugins = require "core.customPlugins"
 
 customPlugins.add(function(use)
-  use  'famiu/bufdelete.nvim'
+  use 'Vimjas/vim-python-pep8-indent'
+  use 'famiu/bufdelete.nvim'
 end)
 
