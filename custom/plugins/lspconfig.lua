@@ -1,5 +1,3 @@
-print "In LSP Config "
-
 local M = {}
 M.setup_lsp = function(attach, capabilities)
    local lspconfig = require "lspconfig"
