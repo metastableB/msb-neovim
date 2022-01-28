@@ -147,9 +147,7 @@ being availabel.
 - *lsp-signature.nvim*: Show function signature when you type.
 - *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items window.
 
-## Install Explanations
-
-# Explanation
+# Install Explanations
 
 1. `setup.sh`: The first script to run is the setup script `setup.sh`. Since we
    are aiming for a portable installation, most of our dependencies are
