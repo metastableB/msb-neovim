@@ -20,8 +20,7 @@ M.plugins = {
          enable_git = 0,
          -- packerCompile required after changing lazy_load
          lazy_load = true,
-
-         ui = {
+         view = {
            -- I like to have the root folder.
             hide_root_folder = false,
          },
@@ -29,7 +28,11 @@ M.plugins = {
       luasnip = {
          snippet_path = {},
       },
-   },
+      lspconfig = {
+        setup_lspconf = "custom.plugins.lspconfig",
+      },
+  },
 }
+
 
 return M
