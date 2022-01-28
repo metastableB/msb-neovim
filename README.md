@@ -23,57 +23,6 @@ For colored log outputs, set `CLOG_COLOR_ON=1`.
 
 TODO: Wrap these into single `setup.sh` script.
 
-# Explanation
-
-1. `setup.sh`: The first script to run is the setup script `setup.sh`. Since we
-   are aiming for a portable installation, most of our dependencies are
-   downloaded manually -- as opposed to fetching them from a package manager.
-   To facilitate downloads in our python based install script, we need certain
-   packages like `requests`. Thus the setup scripts creates a temporary virtual
-   environment and installs these required packages.
-
-2. `install.sh`: This script downloads and installs various executables
-   including neovim. The script is designed to work in various *STEPS* which
-   perform a self contained isolated action.
-
-  - *STEP 1* : We setup two top level directories. A temporary directory at
-    `TEMP_DIR = /tmp/nvim-msb/` and the installation directory at
-    `INSTALL_DIR=./.nvim-msb/`. Certain sub-directories are also created but
-    those are entirely maintained internally.
-  - *STEP 2* : Download neovim app-image. We download neovim to the
-    installation directory; the correct version is downloaded based on platform
-    details stored in `helper.Config`. We store this in `$INSTALL_DIR/lib` and
-    use a `.msbrc` file make this availabel in path.
-  - *STEP 3* : Install `ripgrip` from precompiled binaries. This again goes
-    into `$INSTALL_DIR/lib`
-  - *STEP 4* : Install `fd` precompiled binaries. This again goes into
-    `$INSTALL_DIR/lib`
-  - *STEP 5* : Set up `NvChad`. NvChad is a set of minimal configuration files
-    and plugins that we will use as our base configuration. The scripts are all
-    written in Lua and supports easy customization. We clone `NvChad` to
-    `$INSTALL_DIR/config/` which is where all our plugins will work from.
-
-
-# Bugs, TODOs and Feature Requests
-
-- [X] !BUG! The theme picker using telescope does not seem to work. When
-  setting a theme, we seem to be encountering an error. 
-  *Update* Seems to be an issue with upstream nvchad. It expects a `lua/custom`
-  folder with `init.lua` and `chadrc`. Adding empty files fixed the bug.
-  Upstream shoudl ideally use `perror()` when requiring these files.
-- [ ] !BUG! Fix sidebard artifacts that shows up (next to line number) when
-  working from within `tmux`
-- [ ] !BUG! When opening a file that has an associated `.swp` file on disk,
-  `nvim-tree` bugs out. A workaround for now is to just use `telescope
-  find_file`, but this bug needs to be fixed.
-- [ ] Clean default settings and plugin configurations.
-- [ ] Verify each and every existing (pre-packaged) plugin is working properly
-- [ ] Configure packaged plugins.
-- [ ] Start extending with more plugins
-- [ ] Add a telescope list to search lablels and tags (`:TODO: :HELP:` etc)
-- [ ] Implement some form of workspace management/session management.
-- [ ] Port custom neovim settings from `init.vim` version 0.2.
-
 # Usage Documentation
 
 ## (Self-contained) Plugin Notes
@@ -191,6 +140,38 @@ being availabel.
   sources are installed from external repositories and "sourced".
 - *lsp-signature.nvim*: Show function signature when you type.
 - *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items window.
+
+## Install Explanations
+
+# Explanation
+
+1. `setup.sh`: The first script to run is the setup script `setup.sh`. Since we
+   are aiming for a portable installation, most of our dependencies are
+   downloaded manually -- as opposed to fetching them from a package manager.
+   To facilitate downloads in our python based install script, we need certain
+   packages like `requests`. Thus the setup scripts creates a temporary virtual
+   environment and installs these required packages.
+
+2. `install.sh`: This script downloads and installs various executables
+   including neovim. The script is designed to work in various *STEPS* which
+   perform a self contained isolated action.
+
+  - *STEP 1* : We setup two top level directories. A temporary directory at
+    `TEMP_DIR = /tmp/nvim-msb/` and the installation directory at
+    `INSTALL_DIR=./.nvim-msb/`. Certain sub-directories are also created but
+    those are entirely maintained internally.
+  - *STEP 2* : Download neovim app-image. We download neovim to the
+    installation directory; the correct version is downloaded based on platform
+    details stored in `helper.Config`. We store this in `$INSTALL_DIR/lib` and
+    use a `.msbrc` file make this availabel in path.
+  - *STEP 3* : Install `ripgrip` from precompiled binaries. This again goes
+    into `$INSTALL_DIR/lib`
+  - *STEP 4* : Install `fd` precompiled binaries. This again goes into
+    `$INSTALL_DIR/lib`
+  - *STEP 5* : Set up `NvChad`. NvChad is a set of minimal configuration files
+    and plugins that we will use as our base configuration. The scripts are all
+    written in Lua and supports easy customization. We clone `NvChad` to
+    `$INSTALL_DIR/config/` which is where all our plugins will work from.
 
 
 ## Debugging
