@@ -1,13 +1,12 @@
--- -- This is an example init file , its supposed to be placed in /lua/custom dir
--- lua/custom/init.lua
-
--- This is where your custom modules and plugins go.
--- Please check NvChad docs if you're totally new to nvchad + dont know lua!!
-
-local customPlugins = require "core.customPlugins"
-
-customPlugins.add(function(use)
-  use 'Vimjas/vim-python-pep8-indent'
-  use 'famiu/bufdelete.nvim'
-end)
-
+-- Current understanding: The top level init.lua, (outside lua folder) calls
+-- loads the three main modules, [options, mappings, plugins]. These files
+-- internally then use the custom settings to overwrite their own settings. The
+-- custom folder mainly just contains lua tables with custom values and
+-- functions. These are then passed on to the appropriate variable (see
+-- chardrc) so that they are applied on load.
+--
+--
+-- Plugins and Plugin Settings
+-- --------------------------
+-- Plugin information is localized to custom.plugins module and are loaded from
+-- custom.chadrc.

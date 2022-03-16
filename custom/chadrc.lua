@@ -1,13 +1,10 @@
--- Custom settings.
--- ---------------
--- This is an example chadrc file , its supposed to be placed in /lua/custom dir
--- lua/custom/chadrc.lua
-
+-- Custom plugins and options. 
+-- See: https://github.com/siduck/dotfiles/blob/master/nvchad/custom/chadrc.lua
 local M = {}
 
--- make sure you maintain the structure of `core/default_config.lua` here,
--- example of changing theme:
+local userPlugins = require "custom.plugins"
 
+-- make sure you maintain the structure of `core/default_config.lua` here,
 M.plugins = {
    -- enable/disable plugins (false for disable)
    status = {
@@ -32,7 +29,8 @@ M.plugins = {
         setup_lspconf = "custom.plugins.lspconfig",
       },
   },
+   install = userPlugins,
 }
-
-
 return M
+
+
