@@ -23,7 +23,6 @@ M.plugins = {
     },
   },
 
-
   default_plugin_config_replace = {
     nvim_treesitter = pluginConf.treesitter,
     nvim_tree = pluginConf.nvimtree,
