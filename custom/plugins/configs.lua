@@ -22,7 +22,7 @@ M.nvimtree = {
    view = {
      hide_root_folder = false,
      preserve_window_proportions = true,
-     side = 'right',
+     side = 'left',
    },
    lazy_load = true,
 }
