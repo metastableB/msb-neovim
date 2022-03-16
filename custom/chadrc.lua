@@ -3,34 +3,37 @@
 local M = {}
 
 local userPlugins = require "custom.plugins"
+local pluginConf = require "custom.plugins.configs"
 
 -- make sure you maintain the structure of `core/default_config.lua` here,
 M.plugins = {
    -- enable/disable plugins (false for disable)
-   status = {
-     -- These are disabled by default. Enable them
-      colorizer = true, -- (for kicks and giggles)
-      dashboard = true,
-   },
-   options = {
-      nvimtree = {
-         enable_git = 0,
-         -- packerCompile required after changing lazy_load
-         lazy_load = true,
-         view = {
-           -- I like to have the root folder.
-            hide_root_folder = false,
-         },
-      },
-      luasnip = {
-         snippet_path = {},
-      },
-      lspconfig = {
-        setup_lspconf = "custom.plugins.lspconfig",
-      },
+  status = {
+    -- These are disabled by default. Enable them
+    colorizer = true, -- (for kicks and giggles)
+    alpha = true, -- (dashboard)
   },
-   install = userPlugins,
+
+  options = {
+    luasnip = {
+      snippet_path = {},
+    },
+    lspconfig = {
+      setup_lspconf = "custom.plugins.lspconfig",
+    },
+  },
+
+
+  default_plugin_config_replace = {
+    nvim_treesitter = pluginConf.treesitter,
+    nvim_tree = pluginConf.nvimtree,
+  },
+
+  install = userPlugins,
+}
+
+
+M.ui = {
+   theme = "monokai",
 }
 return M
-
-

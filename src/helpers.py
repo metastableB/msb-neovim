@@ -412,7 +412,7 @@ def setup_nvchad(cfg, overwrite=False):
     url = cfg.GH_NVCHAD
     outf = os.path.join(cfg.xdg_config_dir, 'nvim/')
     if os.path.exists(outf):
-        lg.warning("Existing configuration found")
+        lg.warning("Existing configuration found:", outf)
         # This will also remove all plugin related settings
         if overwrite:
             lg.warning("Removing it")
