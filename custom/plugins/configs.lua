@@ -19,10 +19,11 @@ M.nvimtree = {
    git = {
       enable = false,
    },
-   -- view = {
-   --   preserve_window_proportions = true,
-   --   side = 'right',
-   -- },
+   view = {
+     hide_root_folder = false,
+     preserve_window_proportions = true,
+     side = 'right',
+   },
    lazy_load = true,
 }
 
