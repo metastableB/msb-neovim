@@ -33,6 +33,7 @@ M.plugins = {
 
 
 M.ui = {
-   theme = "monokai",
+   theme = "onedark",
 }
+
 return M
