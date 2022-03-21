@@ -49,3 +49,9 @@
 vim.wo.wrap = true
 vim.o.textwidth = 79
 
+-- Spell check: Vim native spell check highlighting has conflicts with
+-- tree-sitter. We thus use spellsitter, an extra plugin to make spell checks
+-- visible.
+vim.o.spell = true
+vim.o.spelllang = "en_us"
+
