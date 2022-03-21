@@ -11,8 +11,15 @@ M.treesitter = {
       "json",
       "markdown",
       "bash",
-      "python"
+      "python",
+      "org"
    },
+   -- These are for nvim-orgmode plugin
+   highlight = {
+     enable = true,
+     disable = {'org'},
+     additional_vim_regex_highlighting = {'org'}
+   }
 }
 
 M.nvimtree = {

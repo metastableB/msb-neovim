@@ -28,6 +28,10 @@
                 --                 • "force": use value from the rightmost map
                 --     {...}       Two or more map-like tables.
                 --
+                --
+-- User Plugin Settings
+-- --------------------
+-- See how we incorporated nvim-orgmode through edits in custom/plugins/init and chardrc.init
 --
 -- Global vim Settings
 -- -------------------
@@ -44,5 +48,4 @@
 -- Line wrap
 vim.wo.wrap = true
 vim.o.textwidth = 79
-
 
