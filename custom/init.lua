@@ -55,3 +55,6 @@ vim.o.textwidth = 79
 vim.o.spell = true
 vim.o.spelllang = "en_us"
 
+-- Folding: Tree sitter based folding
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
