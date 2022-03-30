@@ -40,6 +40,10 @@
 --
 -- print("Hello I'm loaded")
 --
+--------------
+-- Mappings --
+--------------
+require "custom.mappings"
 
 ---------------------
 -- Global Settings -- 

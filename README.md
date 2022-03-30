@@ -31,6 +31,8 @@ We do not include any LSP servers and they need to be installed on a need basis.
 
 # Usage Documentation
 
+To see the current registered key-maps, use `<leader>ch`.
+
 ## (Self-contained) Plugin Notes
 
 `NvChad` ships with a set of self-contained plugins that does not require any
