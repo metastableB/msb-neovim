@@ -40,10 +40,11 @@
 --
 -- print("Hello I'm loaded")
 --
---------------
--- Mappings --
---------------
+------------------------------
+-- Mappings  and Autocommands
+------------------------------
 require "custom.mappings"
+require "custom.autocmds"
 
 ---------------------
 -- Global Settings -- 
