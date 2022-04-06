@@ -110,6 +110,7 @@ Tree based file explorer side-bar.
   plugin makes it easy to navigate between langauge specific keywords (if-else
   blocks, whiel loops etc)
 - *nvim-comment*: Toggles comments.
+- *command-palette*: Custom command palette
 
 ## LSP Plugins
 

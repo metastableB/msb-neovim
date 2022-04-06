@@ -62,3 +62,6 @@ vim.o.spelllang = "en_us"
 -- Folding: Tree sitter based folding
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Jumplist: Make it behave like tags (natural). (Only neovim)
+vim.o.jumpoptions = vim.o.jumpoptions .. "stack"
