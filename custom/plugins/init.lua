@@ -3,7 +3,7 @@
 local pep8indent = {'Vimjas/vim-python-pep8-indent'}
 -- Bufdelte: Maintain buffer layout on close
 local bufdelete = {'famiu/bufdelete.nvim'}
--- Spellsitter: Spellcheck for treesitter TODO: DOES NOT WORK
+-- Spellsitter: Spellcheck for treesitter
 local spellsitter = {
   'lewis6991/spellsitter.nvim',
   config = function()
@@ -39,12 +39,25 @@ orgmode.orgbullets = {
   end,
 }
 
+-- Telescope-Command-Pallet 
+-- A command pallet plugin for telescope that shows your custom command.
+-- The commands are defined in custom.plugins.commandpallet and are loaded into
+-- telescope in the command_pallet variable.
+local commandpallet = {
+  "LinArcX/telescope-command-palette.nvim",
+  config = function()
+    require('telescope').load_extension('command_palette')
+  end,
+}
+
+--
 -- Pack and Ship all plugins
 local M = {
   pep8indent,
   bufdelete,
   spellsitter,
   orgmode.orgmode,
-  orgmode.orgbullets
+  orgmode.orgbullets,
+  commandpallet,
 }
 return M

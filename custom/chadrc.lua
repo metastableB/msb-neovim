@@ -1,4 +1,5 @@
 -- Custom plugins and options. 
+--
 -- See: https://github.com/siduck/dotfiles/blob/master/nvchad/custom/chadrc.lua
 local M = {}
 
@@ -26,11 +27,11 @@ M.plugins = {
   default_plugin_config_replace = {
     nvim_treesitter = pluginConf.treesitter,
     nvim_tree = pluginConf.nvimtree,
+    telescope = pluginConf.telescope,
   },
 
   install = userPlugins,
 }
-
 
 M.ui = {
    theme = "onedark",
