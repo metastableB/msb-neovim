@@ -1,0 +1,16 @@
+
+{
+  "include": [
+    ".",
+  ],
+  
+  "exclude": [
+  ],
+
+  "ignore": [
+  ],
+  
+  "stubPath": "/home/don/msb-neovim/.nvim-msb/lib/typeshed/stubs/",
+  "reportMissingImports" : true,
+  "reportMissingTypeStubs" : true,
+}

@@ -11,7 +11,8 @@ Supported platforms:
 
 # Installation
 
-Clone this repository to your local machine. Open the folder in a terminal with bash execute the following commands.
+Clone this repository to your local machine. Open the folder in a terminal with
+bash execute the following commands.
 
 ```
 ./setup.sh 
@@ -25,9 +26,15 @@ TODO: Wrap these into single `setup.sh` script.
 
 ## Post-Install Steps
 
-We do not include any LSP servers and they need to be installed on a need basis. We do include *nvim-lspconfig* plugin which is a collection of common configuration for a variety of LSP servers. See the [LSP Plugins](#lsp-plugins) section for more information on LSP and included plugins. 
+We do not include any LSP servers and they need to be installed on a need
+basis. We do include *nvim-lspconfig* plugin which is a collection of common
+configuration for a variety of LSP servers. See the [LSP Plugins](#lsp-plugins)
+section for more information on LSP and included plugins. 
 
-[Here is a list](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md) of LSP servers whoes configuration we ship with (as part of *nvim-lspconfig*). Install required LSP servers from here. 
+[Here is a
+list](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+of LSP servers whoes configuration we ship with (as part of *nvim-lspconfig*).
+Install required LSP servers from here. 
 
 # Usage Documentation
 
