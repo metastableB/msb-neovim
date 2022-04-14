@@ -24,7 +24,8 @@ M.treesitter = {
 
 M.nvimtree = {
    git = {
-      enable = false,
+      enable = true,
+      ignore = true,
    },
    view = {
      hide_root_folder = false,
@@ -32,6 +33,11 @@ M.nvimtree = {
      side = 'left',
    },
    lazy_load = true,
+   update_focused_file = {
+    enable = true,
+    update_cwd = true,
+    ignore_list = {},
+   }
 }
 
 local cp = require "custom.plugins.commandpalette"
