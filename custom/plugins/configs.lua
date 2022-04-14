@@ -12,7 +12,8 @@ M.treesitter = {
       "markdown",
       "bash",
       "python",
-      "org"
+      "org",
+      "latex",
    },
    -- These are for nvim-orgmode plugin
    highlight = {
