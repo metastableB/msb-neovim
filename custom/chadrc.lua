@@ -34,7 +34,7 @@ M.plugins = {
 }
 
 M.ui = {
-   theme = "onedark",
+   theme = "jellybeans",
 }
 
 return M
