@@ -1,4 +1,4 @@
--- Current understanding: The top level init.lua, (outside lua folder) calls
+--  The top level init.lua, (outside lua folder) calls
 -- loads the three main modules, [options, mappings, plugins]. These files
 -- internally then use the custom settings to overwrite their own settings. The
 -- custom folder mainly just contains lua tables with custom values and
@@ -61,8 +61,22 @@ vim.o.spell = true
 vim.o.spelllang = "en_us"
 
 -- Folding: Tree sitter based folding
+-- We are going to use expression based folding where the expressions are
+-- provided by tree-sitter.
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- This will prevent being enabled on open. Sadly, as soon as you enter insert
+-- mode the foldenable is set again.
+vim.o.foldenable = false
+-- I think the best solution to your current workflow problem is to actually
+-- learn how to use fold-levels. Once you have this, you can use autocommands
+-- to get some folding behavior.
+-- z-o: open folds
+-- z-O: open all folds at cursor
+-- z-c: close fold
+-- z-m: Increase the fold level by one
+-- z-r: decrease teh fold level by one
+-- zR: open everything
 
 -- Jumplist: Make it behave like tags (natural). (Only neovim)
 vim.o.jumpoptions = vim.o.jumpoptions .. "stack"
