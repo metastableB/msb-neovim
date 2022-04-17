@@ -26,6 +26,8 @@ local palette_opts = themes.get_dropdown{}
 -- The master table for the palette
 local palette_table = {} 
 local function setup(ptable, useropts_on)
+  -- Extend our opts with custom theme
+  palette_opts = themes.vscode(palette_opts)
   palette_table = ptable
   if useropts_on == true then
     respect_user_opts = true
@@ -33,6 +35,35 @@ local function setup(ptable, useropts_on)
   if useropts_on == false then
     respect_user_opts = false
   end
+end
+
+-- Lets define some custom themes
+function themes.vscode(opts)
+  opts = opts or {}
+  local theme_opts = {
+    theme = "dropdown",
+    results_title = false,
+    sorting_strategy = "ascending",
+    layout_strategy = "vertical",
+    layout_config = {
+      -- anchor = "N",
+      -- prompt_position = "top",
+      width = function(_, max_columns, _)
+        return math.min(max_columns, 120)
+      end,
+      height = function(_, _, max_lines)
+        return math.min(max_lines, 15)
+      end,
+    },
+  }
+  if opts.layout_config and opts.layout_config.prompt_position == "bottom" then
+    theme_opts.borderchars = {
+      prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      results = { "─", "│", "─", "│", "╭", "╮", "┤", "├" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    }
+  end
+  return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
 -- Couple of test cases
@@ -130,14 +161,13 @@ local custompalette_fn = function(opts, M)
   end
   M = M or palette_table
   pickers.new(opts, {
-    prompt_title = "My palette2",
+    prompt_title = "Custom Palette",
     finder = finders.new_table {
       results = M,
       entry_maker = entry_maker_fn,
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = run_selection,
-    sorter = conf.generic_sorter(opts),
   }):find()
 end
 
