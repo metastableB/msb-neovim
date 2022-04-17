@@ -43,14 +43,15 @@ orgmode.orgbullets = {
 -- We need to specify absolute path. Remove init.lua
 local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
 local pluginroot = vimrc .. "lua/custom/plugins/"
-local pluginpath = pluginroot .. "custompalette/lua/"
+local pluginpath = pluginroot .. "custompalette/"
 local custompalette = {
   pluginpath,
   as = 'custompalette',
   config = function()
-    local cpconfig = require("custom.cpconfig")
+    -- local cpconfig = require("custom.cpconfig")
     ext = require('telescope').load_extension('custompalette')
-    ext.setup(nil, cpconfig)
+    config = require('custom.cpconfig')
+    ext.setup(config)
   end,
 }
 --   require('custom.plugins.custompalette')

@@ -19,12 +19,20 @@ local themes = require "telescope.themes"
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 local entry_display = require("telescope.pickers.entry_display")
+-- Turn this on the respect the user specified telescope option
+local respect_user_opts = false
 local palette_opts = themes.get_dropdown{}
 
 -- The master table for the palette
 local palette_table = {} 
-local function setup(ptable)
+local function setup(ptable, useropts_on)
   palette_table = ptable
+  if useropts_on == true then
+    respect_user_opts = true
+  end
+  if useropts_on == false then
+    respect_user_opts = false
+  end
 end
 
 -- Couple of test cases
@@ -117,7 +125,9 @@ end
 
 -- our picker function: colors
 local custompalette_fn = function(opts, M)
-  opts = opts or palette_opts
+  if respect_user_opts ~= true then
+    opts = palette_opts
+  end
   M = M or palette_table
   pickers.new(opts, {
     prompt_title = "My palette2",
@@ -133,6 +143,7 @@ end
 
 return telescope.register_extension({
   exports = {
-    custompalette = custompalette_fn
+    custompalette = custompalette_fn,
+    setup = setup
   },
 })
