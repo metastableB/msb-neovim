@@ -41,12 +41,4 @@ M.nvimtree = {
    }
 }
 
-local cp = require "custom.plugins.commandpalette"
-M.telescope = {
-  -- These key is added to the table if it does not exist. If the key exists,
-  -- these values are used to override them.
-  extensions = {
-    command_palette = cp,
-  },
-}
 return M

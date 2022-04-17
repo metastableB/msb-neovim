@@ -1,4 +1,3 @@
-
 -- PEP8 Indent
 local pep8indent = {'Vimjas/vim-python-pep8-indent'}
 -- Bufdelte: Maintain buffer layout on close
@@ -39,16 +38,24 @@ orgmode.orgbullets = {
   end,
 }
 
--- Telescope-Command-Pallet 
--- A command pallet plugin for telescope that shows your custom command.
--- The commands are defined in custom.plugins.commandpallet and are loaded into
--- telescope in the command_pallet variable.
-local commandpallet = {
-  "LinArcX/telescope-command-palette.nvim",
+-- Custom command palette
+---------
+-- We need to specify absolute path. Remove init.lua
+local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
+local pluginroot = vimrc .. "lua/custom/plugins/"
+local pluginpath = pluginroot .. "custompalette/lua/"
+local custompalette = {
+  pluginpath,
+  as = 'custompalette',
   config = function()
-    require('telescope').load_extension('command_palette')
+    local cpconfig = require("custom.cpconfig")
+    ext = require('telescope').load_extension('custompalette')
+    ext.setup(nil, cpconfig)
   end,
 }
+--   require('custom.plugins.custompalette')
+-- local map = require("core.utils").map
+-- map("n", "<leader>cp", ":lua commandpalette<CR>")
 
 --
 -- Pack and Ship all plugins
@@ -58,6 +65,6 @@ local M = {
   spellsitter,
   orgmode.orgmode,
   orgmode.orgbullets,
-  commandpallet,
+  custompalette
 }
 return M
