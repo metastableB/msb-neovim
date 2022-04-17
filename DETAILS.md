@@ -4,11 +4,12 @@ We ship with a bunch of plugins already, and we install a few other through
 packer. Some of these might require installing external dependencies likes LSP
 servers. See details below.
 
-## Telescope (Fuzzy file, buffer, code, grep everything)
+## Telescope 
 
-Telescope is a lazily fast (from experience) fuzzy finder. It can search is all
-sorts of lists and can be configured to use all kinds of *finders, sorters* and
-*pickers*. The defaults provided with NvChad is pretty sweet.
+Telescope is a blazingly fast (from experience) fuzzy finder. It can search is
+all sorts of lists and can be configured to use all kinds of *finders, sorters*
+and *pickers*. The defaults provided with NvChad is pretty sweet. See
+`custom-pallet` a plugin we made for telescope.
 
 | Keybind      | Description                          |
 |--------------|--------------------------------------|
@@ -18,6 +19,7 @@ sorts of lists and can be configured to use all kinds of *finders, sorters* and
 | `<leader>fh` | Search in neovim help-tags           |
 | `<leader>fw` | Live grep search                     |
 | `<leader>th` | Theme picker                         |
+| `<leader>cp` | Custom palette                       |
 
 ## Custom-pallet
 
