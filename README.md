@@ -1,7 +1,7 @@
 # MSB-Neovim
 
 My neovim configurations files and installation scripts for OSX and UNIX/
-Bash-WSL2. 
+Bash-WSL2. An attempt at making this portable.
 
 # Installation
 
@@ -28,7 +28,7 @@ directory.
    collection of common configuration for a variety of LSP servers. [Here is a
    list](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
    of LSP servers whose configuration we ship with.
-3. [Plugin details, usage and key-binds](details.md)
+3. [Plugin details, usage and key-binds](DETAILS.md)
 
 ## Debugging
 
