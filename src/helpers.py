@@ -12,7 +12,7 @@ class Config:
     # The latest stable/bleeding linux app image build. This will be downloaded
     # and used as neovim executable.
     NEOVIM_APPIMG = {
-        'linux': "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage",
+        'linux': "https://github.com/neovim/neovim/releases/download/v0.7.0/nvim.appimage",
         'osx': "https://github.com/neovim/neovim/releases/latest/download/nvim-macos.tar.gz",
     }
     # Platforms we have tested these scripts on.
