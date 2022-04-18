@@ -148,14 +148,14 @@ local function run_selection(prompt_bufnr, map)
     end
     -- Check if the table has a sub-table. If yes recursively call self
     if selection.value.subtable ~= nil then
-      custompalette(palette_opts, subtable)
+      custompalette_fn(palette_opts, subtable)
     end
   end)
   return true
 end
 
 -- our picker function: colors
-local custompalette_fn = function(opts, M)
+function custompalette_fn(opts, M)
   if respect_user_opts ~= true then
     opts = palette_opts
   end

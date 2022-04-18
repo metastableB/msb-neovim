@@ -1,11 +1,20 @@
 -- Configuration of the custom pallet
+local cheatsheet = require "custom.cheetsheet"
+local tbuiltin = require "telescope.builtin"
 
 local cpconfig = {
+  {
+    name = "MSB Cheatsheet",
+    helpstr = "Show cheat sheet",
+    subtable = cheatsheet,
+  },
   { 
-    name = "Command palette (<ldr>-tcp)", 
-    action = vim.cmd,
-    action_args = ":Telescope command_palette<CR>",
-    helpstr = ":Telescope command_palette<CR>",
+    name = "Custom-palette (<leader>-cp)", 
+    action = function()
+      ext = require('telescope').load_extension('custompalette')
+      ext.custompalette()
+    end,
+    helpstr = ":Telescope custompalette",
   },
   {
     name = "Reload vimrc",
@@ -21,57 +30,48 @@ local cpconfig = {
   },
   {
     name = "Jump list",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').jumplist()",
-    helpstr = ":lua require('telescope.builtin').jumplist()",
+    action = tbuiltin.jumplist,
+    helpstr = ":Telescope jumplist",
   },
   {
     name = "All commands",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').commands()",
-    helpstr = ":lua require('telescope.builtin').commands()",
+    action = tbuiltin.commands,
+    helpstr = ":Telescope commands",
   },
   {
     name = "Command history",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').command_history()",
-    helpstr = ":lua require('telescope.builtin').command_history()",
+    action = tbuiltin.command_history,
+    helpstr = ":Telescope command_history",
   },
   {
     name = "Registers (A-e)",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').registers()",
-    helpstr = ":lua require('telescope.builtin').registers()",
+    action = tbuiltin.registers,
+    helpstr = ":Telescope registers",
   },
   {
     name = "Colorshceme",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').colorscheme()",
-    helpstr = ":lua require('telescope.builtin').colorscheme()",
+    action = tbuiltin.colorscheme,
+    helpstr = ":Telescope colorscheme",
   },
   {
     name = "Vim options",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').vim_options()",
-    helpstr = ":lua require('telescope.builtin').vim_options()",
+    action = tbuiltin.vim_options,
+    helpstr = ":Telescope vim_options",
   },
   {
     name = "Keymaps",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').keymaps()",
-    helpstr = ":lua require('telescope.builtin').keymaps()",
+    action = tbuiltin.keymaps,
+    helpstr = ":Telescope keymaps",
   },
   {
     name = "Buffers",
-    action = vim.cmd,
-    action_args = ":Telescope buffers",
+    action = tbuiltin.buffers,
     helpstr = ":Telescope buffers",
   },
   {
     name = "Search history",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').search_history()",
-    helpstr = ":lua require('telescope.builtin').search_history()",
+    action = tbuiltin.search_history,
+    helpstr = ":Telescope search_history",
   },
   {
     name = "Paste mode",
@@ -111,9 +111,8 @@ local cpconfig = {
   },
   {
     name = "Loc list ",
-    action = vim.cmd,
-    action_args = ":lua require('telescope.builtin').loclist()",
-    helpstr = ":lua require('telescope.builtin').loclist()",
+    action = tbuiltin.loclist,
+    helpstr = "telescope.builtin.loclist()",
   },
   {
     name = "Reload file",
@@ -123,15 +122,16 @@ local cpconfig = {
   },
   {
     name = "LSP Reference (<ldr>-lr)",
-    action = vim.cmd,
-    action_args = ":Telescope lsp_references <CR>",
-    helpstr = ":Telescope lsp_references <CR>",
+    action = function ()
+      lsp = require('telescope.builtin')
+      lsp.lsp_references()
+      end,
+    helpstr = ":lua require('telescope.builtin').lsp_references()",
   },
   {
     name = "LSP Document symbolds (<ldr>-ls)",
-    action = vim.cmd,
-    action_args = ":Telescope lsp_document_symbols<CR>",
-    helpstr = ":Telescope lsp_document_symbols<CR>",
+    action = tbuiltin.lsp_document_symbols,
+    helpstr = ":Telescope lsp_document_symbols",
   }
 }
 
