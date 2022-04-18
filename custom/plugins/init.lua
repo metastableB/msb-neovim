@@ -11,6 +11,11 @@ local spellsitter = {
     })
   end,
 }
+-- Lightspeed (movement)
+local lightspeed = {}
+lightspeed.vimrepeat = { 'tpope/vim-repeat' }
+lightspeed.lightspeed = { 'ggandor/lightspeed.nvim' }
+
 -- Orgmode and helper plugins
 local orgmode = {}
 orgmode.orgmode = {
@@ -66,6 +71,8 @@ local M = {
   spellsitter,
   orgmode.orgmode,
   orgmode.orgbullets,
-  custompalette
+  custompalette,
+  lightspeed.vimrepeat,
+  lightspeed.lightspeed,
 }
 return M
