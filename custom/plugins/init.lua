@@ -59,6 +59,16 @@ local custompalette = {
     ext.setup(config)
   end,
 }
+
+-- Neogen 
+-- Treesitter based docstring annotation
+local neogen = {
+  "danymat/neogen",
+  config = function()
+    require('neogen').setup {}
+  end,
+}
+
 --
 -- Pack and Ship all plugins
 local M = {
@@ -70,5 +80,6 @@ local M = {
   custompalette,
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
+  neogen,
 }
 return M

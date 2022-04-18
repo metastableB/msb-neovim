@@ -1,3 +1,12 @@
+## Custom Mappings
+
+| Keybind      | Description                            |
+|--------------|----------------------------------------|
+|"<leader>lr"  | ":Telescope lsp_references <CR>"       |
+|"<leader>ls"  | ":Telescope lsp_document_symbols<CR>"  |
+|"<leader>cp"  | ":Telescope custompalette <CR>"        |
+|"<leader>nf"  | ":lua require('neogen').generate()<CR>"|
+
 
 ## Telescope 
 
