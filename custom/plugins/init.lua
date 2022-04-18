@@ -59,10 +59,6 @@ local custompalette = {
     ext.setup(config)
   end,
 }
---   require('custom.plugins.custompalette')
--- local map = require("core.utils").map
--- map("n", "<leader>cp", ":lua commandpalette<CR>")
-
 --
 -- Pack and Ship all plugins
 local M = {

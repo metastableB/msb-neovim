@@ -125,6 +125,7 @@ be a good start.
 - *lsp-signature.nvim*: Show function signature when you type.
 - *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items window.
 
+
 ## QoL Plugins
 
 - *dashboard-nvim* (disabled): Provides an welcome dashboard with options to
@@ -138,6 +139,10 @@ be a good start.
     showing changes) implemented purely in lua/teal.
 - *nvim-opairs*: Handle character pairs (braces, parenthesis, ..)
 - *nvim-comment*: Toggles comments `<leader>/`
+
+## TODO:
+
+bufdelete, vim-python-pep8-indent, spellsitter, nvim-orgmode
 
 # Install Explanations
 
