@@ -1,12 +1,15 @@
 -- Configuration of the custom pallet
-local cheatsheet = require "custom.cheetsheet"
 local tbuiltin = require "telescope.builtin"
+local floatw = require "custom.plugins.float"
+local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
+local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.lua"
 
 local cpconfig = {
   {
     name = "MSB Cheatsheet",
+    action = floatw.toggle,
+    action_args = cheatsheet_file,
     helpstr = "Show cheat sheet",
-    subtable = cheatsheet,
   },
   { 
     name = "Custom-palette (<leader>-cp)", 
