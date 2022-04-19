@@ -72,17 +72,9 @@ local neogen = {
 }
 
 -- Debugger
+-- We aren't using this as we struggled to get this working realiably
 local dap = {}
 dap.dap = { 'mfussenegger/nvim-dap' }
-dap.dapinstall = { 
-  "Pocco81/DAPInstall.nvim",
-  config = function () 
-    local dap_install = require("dap-install")
-    dap_install.setup({
-      installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-    })
-  end
-}
 dap.telescope = {
   'nvim-telescope/telescope-dap.nvim',
   config = function ()
@@ -101,8 +93,7 @@ local M = {
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
   neogen,
-  dap.dap,
-  dap.dapinstall,
-  dap.telescope
+  -- dap.dap,
+  -- dap.telescope
 }
 return M
