@@ -33,6 +33,10 @@ local daptable ={
     action = textensions.dap.frames,
     helpstr = "List frames",
   },
+  { name="Toggle Breakpoint", helpstr="<leader>db"},
+  { name="Continue", helpstr="<leader>dc"},
+  { name="Step over", helpstr="<leader>dso"},
+  { name="Step into", helpstr="<leader>dsi"}
 }
 
 local cpconfig = {
