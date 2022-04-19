@@ -10,27 +10,27 @@ local M = {}
 local daptable ={
   {
     name = "Commands",
-    action = textensions.dap.commands,
+    -- action = textensions.dap.commands,
     helpstr = "Show DAP commands",
   },
   {
     name = "Configurations",
-    action = textensions.dap.configurations,
+    -- action = textensions.dap.configurations,
     helpstr = "Show DAP configurations",
   },
   {
     name = "List breakpoints",
-    action = textensions.dap.list_breakpoints,
+    -- action = textensions.dap.list_breakpoints,
     helpstr = "List breakpoints",
   },
   {
     name = "List variables",
-    action = textensions.dap.variables,
+    -- action = textensions.dap.variables,
     helpstr = "List variables",
   },
   {
     name = "List frames",
-    action = textensions.dap.frames,
+    -- action = textensions.dap.frames,
     helpstr = "List frames",
   },
   { name="Toggle Breakpoint", helpstr="<leader>db"},
@@ -177,6 +177,6 @@ local cpconfig = {
   }
 }
 
-M.daptable = daptable
+-- M.daptable = daptable
 M.mastertable = cpconfig
 return M

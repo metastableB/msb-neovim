@@ -1,5 +1,4 @@
 -- Load common plugin/utility functions
-require "custom.plugins.common"
 -- PEP8 Indent
 local pep8indent = {'Vimjas/vim-python-pep8-indent'}
 -- Bufdelte: Maintain buffer layout on close
