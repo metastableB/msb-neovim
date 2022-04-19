@@ -1,3 +1,14 @@
+## Folding
+
+| Keybind    | Description  |
+|------------|---------------------------------|
+|     z-o    |  open folds                     | 
+|     z-O    |  open all folds at cursor       | 
+|     z-c    |  close fold                     |         
+|     z-m    |  Increase the fold level by one |         
+|     z-r    |  decrease teh fold level by one |         
+|     zR:    | open everything                 |         
+
 ## Custom Mappings
 
 | Keybind      | Description                            |
