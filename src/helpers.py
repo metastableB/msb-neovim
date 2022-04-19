@@ -442,27 +442,27 @@ def post_install_msg(cfg):
     msbrc = os.path.abspath(msbrc)
     cdir = os.path.abspath(cfg.xdg_config_dir)
     ddir = os.path.abspath(cfg.xdg_data_dir)
-    # These lines are fed to a shell-profile file (msbrc.sh) and the user is
-    # expected to source them from their bashrc or equivalent profile file.
-    # Settings to make neovim available globally
-    scmds = f"NVIM_EXE='{exe}'" + "\n"
-    scmds += f"NVIM_CONFIG_DIR='{vimrc}'" + "\n"
-    # RIP-GREP and Fd
-    scmds += 'NPATH=${PATH}:' + f"'{ripgrep}':'{fd}'"
-    # Neovim and Lua config
-    # scmds += '\nNLUA_PATH="${LUA_PATH};${NVIM_CONFIG_DIR}/lua/?.lua;'
-    # scmds += '${NVIM_CONFIG_DIR}/lua/?/init.lua"'
-    scmds += f"\nNXDG_CONFIG_HOME='{cdir}'"
-    scmds += f"\nNXDG_DATA_HOME='{ddir}'"
-    scmds += "\n" + 'alias msbnvim="env XDG_DATA_HOME=\\"'
-    scmds += '${NXDG_DATA_HOME}\\" XDG_CONFIG_HOME=\\"${NXDG_CONFIG_HOME}\\"'
-    scmds += '  PATH=\\"${NPATH}\\" \\"${NVIM_EXE}\\" " '
-    scmds += '\necho "Sourced nvim configs"'
-
+    template = "#!/bin/bash\nfunction mnvim {"
+    template += f"""
+  NVIM_EXE="{exe}"
+  NVIM_CONFIG_DIR="{vimrc}"
+  NPATH=""" + '"${PATH}:' + f'{fd}:{ripgrep}"'
+    template += f"""
+  NXDG_CONFIG_HOME="{cdir}"
+  NXDG_DATA_HOME="{ddir}"
+  PYLSP_PATH="$(which pylsp)"
+  if [ ! -z "$PYLSP_PATH" ]
+  then
+    PYLSP=$(dirname $PYLSP_PATH)
+    NPATH="$NPATH:$PYLSP"
+  fi\n"""
+    template += 'env XDG_DATA_HOME="${NXDG_DATA_HOME}" '
+    template += 'XDG_CONFIG_HOME="${NXDG_CONFIG_HOME}" PATH="${NPATH}" '
+    template += '${NVIM_EXE}\n}'
     # write to settings file
     with open(msbrc, 'w') as f:
-        print(scmds, file=f)
-    lg.info("1. Source the `msbrc.sh` file in your bashrc" + "\n" +
+        print(template, file=f)
+    lg.info("1. Source the `.msbrc` file in your bashrc" + "\n" +
             f'\t\tsource "{msbrc}"')
     lg.info("2. Install a patched nerd-font and set it as the font for you")
     lg.info(" terminal emulator.")
