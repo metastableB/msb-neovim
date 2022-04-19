@@ -61,7 +61,7 @@ local custompalette = {
 }
 
 -- Neogen 
--- Treesitter based docstring annotation
+-- Treesitter based docstring annotation (comments i.e.)
 local neogen = {
   "danymat/neogen",
   config = function()
@@ -69,6 +69,24 @@ local neogen = {
   end,
 }
 
+-- Debugger
+local dap = {}
+dap.dap = { 'mfussenegger/nvim-dap' }
+dap.dapinstall = { 
+  "Pocco81/DAPInstall.nvim",
+  config = function () 
+    local dap_install = require("dap-install")
+    dap_install.setup({
+      installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+    })
+  end
+}
+dap.telescope = {
+  'nvim-telescope/telescope-dap.nvim',
+  config = function ()
+    require('telescope').load_extension('dap')
+  end,
+}
 --
 -- Pack and Ship all plugins
 local M = {
@@ -81,5 +99,8 @@ local M = {
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
   neogen,
+  dap.dap,
+  dap.dapinstall,
+  dap.telescope
 }
 return M

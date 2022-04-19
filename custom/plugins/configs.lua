@@ -35,7 +35,7 @@ M.nvimtree = {
    },
     lazy_load = true,
     update_focused_file = {
-    enable = true,
+    enable = false,
     update_cwd = true,
     ignore_list = {},
    }

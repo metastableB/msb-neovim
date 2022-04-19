@@ -1,8 +1,38 @@
 -- Configuration of the custom pallet
 local tbuiltin = require "telescope.builtin"
+local textensions = require "telescope".extensions
 local floatw = require "custom.plugins.float"
 local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
 local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.lua"
+
+-- Settings for dap 
+local daptable ={
+  {
+    name = "Commands",
+    action = textensions.dap.commands,
+    helpstr = "Show DAP commands",
+  },
+  {
+    name = "Configurations",
+    action = textensions.dap.configurations,
+    helpstr = "Show DAP configurations",
+  },
+  {
+    name = "List breakpoints",
+    action = textensions.dap.list_breakpoints,
+    helpstr = "List breakpoints",
+  },
+  {
+    name = "List variables",
+    action = textensions.dap.variables,
+    helpstr = "List variables",
+  },
+  {
+    name = "List frames",
+    action = textensions.dap.frames,
+    helpstr = "List frames",
+  },
+}
 
 local cpconfig = {
   {
@@ -135,6 +165,10 @@ local cpconfig = {
     name = "LSP Document symbolds (<ldr>-ls)",
     action = tbuiltin.lsp_document_symbols,
     helpstr = ":Telescope lsp_document_symbols",
+  },
+  {
+    name = "DAP Options",
+    subtable = daptable,
   }
 }
 
