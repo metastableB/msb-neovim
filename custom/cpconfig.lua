@@ -5,6 +5,7 @@ local floatw = require "custom.plugins.float"
 local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
 local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.lua"
 
+local M = {}
 -- Settings for dap 
 local daptable ={
   {
@@ -172,4 +173,6 @@ local cpconfig = {
   }
 }
 
-return cpconfig
+M.daptable = daptable
+M.mastertable = cpconfig
+return M

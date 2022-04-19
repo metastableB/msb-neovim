@@ -1,3 +1,5 @@
+-- Load common plugin/utility functions
+require "custom.plugins.common"
 -- PEP8 Indent
 local pep8indent = {'Vimjas/vim-python-pep8-indent'}
 -- Bufdelte: Maintain buffer layout on close
@@ -56,7 +58,7 @@ local custompalette = {
     -- local cpconfig = require("custom.cpconfig")
     ext = require('telescope').load_extension('custompalette')
     config = require('custom.cpconfig')
-    ext.setup(config)
+    ext.setup(config.mastertable)
   end,
 }
 
