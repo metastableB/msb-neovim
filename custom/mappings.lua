@@ -1,5 +1,5 @@
 local map = require("core.utils").map
-local dap = require("custom.plugins.common").dap_palette
+--local dap = require("custom.plugins.common").dap_palette
 
 -- Telescope: References and lsp document keywords (functions)
 -- More mappings are specified as part of custom palette

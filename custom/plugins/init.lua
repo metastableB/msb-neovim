@@ -70,16 +70,29 @@ local neogen = {
   end,
 }
 
+-- Nvim-treesitter-pyfold
+local pyfold = {
+  'eddiebergman/nvim-treesitter-pyfold',
+  config = function()
+    require('nvim-treesitter.configs').setup{
+      pyfold = {
+        enable = true,
+        custom_foldtext = true
+      },
+    }
+  end
+}
+
 -- Debugger
 -- We aren't using this as we struggled to get this working realiably
-local dap = {}
-dap.dap = { 'mfussenegger/nvim-dap' }
-dap.telescope = {
-  'nvim-telescope/telescope-dap.nvim',
-  config = function ()
-    require('telescope').load_extension('dap')
-  end,
-}
+-- local dap = {}
+-- dap.dap = { 'mfussenegger/nvim-dap' }
+-- dap.telescope = {
+--   'nvim-telescope/telescope-dap.nvim',
+--   config = function ()
+--     require('telescope').load_extension('dap')
+--   end,
+-- }
 --
 -- Pack and Ship all plugins
 local M = {
@@ -92,6 +105,7 @@ local M = {
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
   neogen,
+  pyfold,
   -- dap.dap,
   -- dap.telescope
 }

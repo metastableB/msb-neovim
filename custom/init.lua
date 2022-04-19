@@ -65,12 +65,10 @@ vim.o.spelllang = "en_us"
 -- provided by tree-sitter.
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
--- This will prevent being enabled on open. Sadly, as soon as you enter insert
--- mode the foldenable is set again.
-vim.o.foldenable = false
 -- I think the best solution to your current workflow problem is to actually
 -- learn how to use fold-levels. Once you have this, you can use autocommands
--- to get some folding behavior.
+-- to get some folding behavior. Also using the plugin nvim-treesitter-pyfold
+-- for good defaults for python-treesitter.
 -- z-o: open folds
 -- z-O: open all folds at cursor
 -- z-c: close fold

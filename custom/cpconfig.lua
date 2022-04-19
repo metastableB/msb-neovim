@@ -7,38 +7,6 @@ local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.lua"
 
 local M = {}
 -- Settings for dap 
-local daptable ={
-  {
-    name = "Commands",
-    -- action = textensions.dap.commands,
-    helpstr = "Show DAP commands",
-  },
-  {
-    name = "Configurations",
-    -- action = textensions.dap.configurations,
-    helpstr = "Show DAP configurations",
-  },
-  {
-    name = "List breakpoints",
-    -- action = textensions.dap.list_breakpoints,
-    helpstr = "List breakpoints",
-  },
-  {
-    name = "List variables",
-    -- action = textensions.dap.variables,
-    helpstr = "List variables",
-  },
-  {
-    name = "List frames",
-    -- action = textensions.dap.frames,
-    helpstr = "List frames",
-  },
-  { name="Toggle Breakpoint", helpstr="<leader>db"},
-  { name="Continue", helpstr="<leader>dc"},
-  { name="Step over", helpstr="<leader>dso"},
-  { name="Step into", helpstr="<leader>dsi"}
-}
-
 local cpconfig = {
   {
     name = "MSB Cheatsheet",
@@ -171,12 +139,7 @@ local cpconfig = {
     action = tbuiltin.lsp_document_symbols,
     helpstr = ":Telescope lsp_document_symbols",
   },
-  {
-    name = "DAP Options",
-    subtable = daptable,
-  }
 }
 
--- M.daptable = daptable
 M.mastertable = cpconfig
 return M
