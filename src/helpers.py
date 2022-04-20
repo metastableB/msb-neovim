@@ -32,6 +32,9 @@ class Config:
         'osx': 'https://github.com/sharkdp/fd/releases/download/v8.3.0/fd-v8.3.0-x86_64-apple-darwin.tar.gz',
         'linux': 'https://github.com/sharkdp/fd/releases/download/v8.3.1/fd-v8.3.1-x86_64-unknown-linux-musl.tar.gz'
     }
+    GH_TYPESHED = {
+        'linux': "https://github.com/python/typeshed",
+    }
 
     def __set_platform(self):
         if sys.platform in ["linux", "linux2"]:
@@ -431,6 +434,23 @@ def setup_nvchad(cfg, overwrite=False):
     shutil.copytree('./custom', cdir)
     cfg.ap_nvchad = os.path.abspath(outf)
 
+def setup_typeshed(cfg, overwrite=False):
+    lg.info("STEP 6: Typeshed (Python type stubs) ")
+    url = cfg.GH_TYPESHED['linux']
+    outf = os.path.join(cfg.lib_dir, 'typeshed')
+    if os.path.exists(outf):
+        lg.warning("Existing configuration found:", outf)
+        # This will also remove all plugin related settings
+        if overwrite:
+            lg.warning("Removing it")
+            shutil.rmtree(outf)
+            assert not os.path.exists(outf)
+    if not os.path.exists(outf):
+        print("outf", outf, "\nurl", url)
+        git("clone", url, outf)
+    msg = "Internal error: Typeshed not found after download"
+    assert os.path.exists(outf), msg
+    # Copy custom stuff
 
 def post_install_msg(cfg):
     lg.info("Post-installation instructions")
@@ -458,7 +478,7 @@ def post_install_msg(cfg):
   fi\n"""
     template += 'env XDG_DATA_HOME="${NXDG_DATA_HOME}" '
     template += 'XDG_CONFIG_HOME="${NXDG_CONFIG_HOME}" PATH="${NPATH}" '
-    template += '${NVIM_EXE}\n}'
+    template += '${NVIM_EXE} "$@"\n}'
     # write to settings file
     with open(msbrc, 'w') as f:
         print(template, file=f)
@@ -467,7 +487,7 @@ def post_install_msg(cfg):
     lg.info("2. Install a patched nerd-font and set it as the font for you")
     lg.info(" terminal emulator.")
     msg = "3. Install the plugins by running:\n"
-    msg += "\tmsbnvim +'hi NormalFloat guibg=#1e222a' +PackerSync"
+    msg += "\tmnvim +'hi NormalFloat guibg=#1e222a' +PackerSync"
     lg.info(msg)
     if cfg.platform == 'osx':
         lg.info("NOTE: On mac, the terminal app does not support 24-bit " +
