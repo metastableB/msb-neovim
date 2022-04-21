@@ -1,25 +1,21 @@
--- A floating window to open specific files.
--- The idea is to make it work as a quick way to look at TODO etc. 
--- Also can be used to display cheat sheet.
+-- A floating window to open specific files. Creates a new buffer if the file
+-- isn't already in a buffer. The idea is to make it work as a quick way to
+-- look at TODO etc. Also can be used to display cheat sheet.
 --
 local floatw = {}
--- Global buffer (creates a buffers and returnts its number)
--- listed, scratch
-bufnr_g = vim.api.nvim_create_buf(false, true)
 
-
-function file_exists(name)
+floatw.file_exists = function(name)
    local f=io.open(name, "r")
    if f~=nil then io.close(f) return true else return false end
 end
 
 
-function round(float)
+floatw.round = function(float)
   return math.floor(float + .5)
 end
 
 
-function window_config(width, height)
+floatw.window_config = function(ui, width, height)
     local border = vim.g.workbench_border or "double"
     return {
       relative = "editor",
@@ -35,23 +31,27 @@ end
 
 
 floatw.toggle = function(filepath)
-  if not file_exists(filepath) then
+  if not floatw.file_exists(filepath) then
     vim.api.nvim_err_writeln("File not found " .. filepath)
     return
   end
     
-  ui = vim.api.nvim_list_uis()[1]
-  local width = round(ui.width * 0.5)
-  local height = round(ui.height * 0.5)
+  local ui = vim.api.nvim_list_uis()[1]
+  local width = floatw.round(ui.width * 0.5)
+  local height = floatw.round(ui.height * 0.5)
   -- Check if the file is already opened in a buffer
   local buf_info = vim.api.nvim_call_function('getbufinfo', {filepath})[1]
-  local _bufnr = bufnr_g
+  local _bufnr
   if buf_info then
     _bufnr = buf_info.bufnr
-    print("Found existing buffer at", _bufnr)
+    print("Found existing buffer at: ", _bufnr)
+  else
+    -- Create a new buffer for this file (we get buffer number)
+    _bufnr = vim.api.nvim_create_buf(false, true)
   end
   -- open the window
-  local win_id = vim.api.nvim_open_win(_bufnr, true, window_config(width, height))
+  local wc = floatw.window_config(ui, width, height)
+  local win_id = vim.api.nvim_open_win(_bufnr, true, wc)
   vim.api.nvim_set_current_win(win_id)
   -- If new buffer, set it to edit
   if not buf_info then
