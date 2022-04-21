@@ -5,7 +5,7 @@ M.setup_lsp = function(attach, capabilities)
    --  pylsp: pip install python-lsp-server not python-language-server
    --  Switching back to pyright as the reason it wasn't working previously was
    --  the lack of a config file in the root directory.
-   local servers = { "html", "cssls", "clangd", "pyright"} --% "pyright"}
+   local servers = { "html", "cssls", "clangd", "pylsp"} --% "pyright"}
    for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
          on_attach = attach,

@@ -47,7 +47,7 @@ floatw.toggle = function(filepath)
     print("Found existing buffer at: ", _bufnr)
   else
     -- Create a new buffer for this file (we get buffer number)
-    _bufnr = vim.api.nvim_create_buf(false, true)
+    _bufnr = vim.api.nvim_create_buf({false}, {false})
   end
   -- open the window
   local wc = floatw.window_config(ui, width, height)
