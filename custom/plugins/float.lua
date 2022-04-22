@@ -42,19 +42,24 @@ floatw.toggle = function(filepath)
   -- Check if the file is already opened in a buffer
   local buf_info = vim.api.nvim_call_function('getbufinfo', {filepath})[1]
   local _bufnr
+  local new_buf = false
   if buf_info then
     _bufnr = buf_info.bufnr
     print("Found existing buffer at: ", _bufnr)
   else
-    -- Create a new buffer for this file (we get buffer number)
-    _bufnr = vim.api.nvim_create_buf({false}, {false})
+    -- Create a new empty buffer
+    new_buf = true
+    _bufnr = vim.api.nvim_create_buf({true}, {false})
+    vim.api.nvim_call_function('setbufvar', {_bufnr, 'buflisted', '0'})
+    buf_info = vim.api.nvim_call_function('getbufinfo', {_bufnr})[1]
   end
   -- open the window
   local wc = floatw.window_config(ui, width, height)
   local win_id = vim.api.nvim_open_win(_bufnr, true, wc)
   vim.api.nvim_set_current_win(win_id)
-  -- If new buffer, set it to edit
-  if not buf_info then
+  if new_buf then
+    -- If new buffer, set it to edit. This will open the file for editing in
+    -- that window. 
     vim.api.nvim_command("e " .. filepath)
   end
 end
