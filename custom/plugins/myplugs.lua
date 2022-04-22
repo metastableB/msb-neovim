@@ -111,15 +111,18 @@ todofloat.toggle = function()
   for c in cstr:gmatch("[^\r\n]+") do
     table.insert(allc, c)
   end
-  local cstr
   if allc[1] == nil then
     print("No TODO file found")
+    return
   end
   -- if len (candidates > 0) ask user
   candidate = allc[1]
   if allc[2] ~= nil then
     -- use the option picker to open a file
     todofloat.optionpicker(allc)
+  else 
+    todofloat.set_todofile(candidate)
+    todofloat.__toggle()
   end
 end
 
