@@ -43,7 +43,7 @@ function themes.vscode(opts)
   local theme_opts = {
     theme = "dropdown",
     results_title = false,
-    sorting_strategy = "ascending",
+    sorting_strategy = "descending",
     layout_strategy = "vertical",
     layout_config = {
       -- anchor = "N",
@@ -63,7 +63,7 @@ function themes.vscode(opts)
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     }
   end
-  return vim.tbl_deep_extend("force", theme_opts, opts)
+  return vim.tbl_deep_extend("force", opts, theme_opts)
 end
 
 -- Couple of test cases

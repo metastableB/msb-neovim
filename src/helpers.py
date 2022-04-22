@@ -446,7 +446,6 @@ def setup_typeshed(cfg, overwrite=False):
             shutil.rmtree(outf)
             assert not os.path.exists(outf)
     if not os.path.exists(outf):
-        print("outf", outf, "\nurl", url)
         git("clone", url, outf)
     msg = "Internal error: Typeshed not found after download"
     assert os.path.exists(outf), msg

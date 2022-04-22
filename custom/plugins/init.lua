@@ -61,6 +61,7 @@ local custompalette = {
   end,
 }
 
+
 -- Neogen 
 -- Treesitter based docstring annotation (comments i.e.)
 local neogen = {
@@ -83,7 +84,7 @@ local pyfold = {
   end
 }
 
--- Troubel
+-- Trouble
 -- Better error display in bottom float
 local trouble = {
 "folke/trouble.nvim",

@@ -3,7 +3,7 @@
 -- See: https://github.com/siduck/dotfiles/blob/master/nvchad/custom/chadrc.lua
 local M = {}
 
-local userPlugins = require "custom.plugins"
+local packerPlugins = require "custom.plugins"
 local pluginConf = require "custom.plugins.configs"
 
 -- make sure you maintain the structure of `core/default_config.lua` here,
@@ -30,7 +30,7 @@ M.plugins = {
     telescope = pluginConf.telescope,
   },
 
-  install = userPlugins,
+  install = packerPlugins,
 }
 
 M.ui = {

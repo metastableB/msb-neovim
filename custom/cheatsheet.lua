@@ -1,6 +1,6 @@
 ## Folding
 
-| Keybind    | Description  |
+| Keybind    | Description                     |
 |------------|---------------------------------|
 |     z-o    |  open folds                     | 
 |     z-O    |  open all folds at cursor       | 
@@ -13,9 +13,8 @@
 
 | Keybind      | Description                            |
 |--------------|----------------------------------------|
-|"<leader>lr"  | ":Telescope lsp_references <CR>"       |
-|"<leader>ls"  | ":Telescope lsp_document_symbols<CR>"  |
-|"<leader>cp"  | ":Telescope custompalette <CR>"        |
+|"cp"          | ":Telescope custompalette <CR>"        |
+|"<leader>t"   | "Open todo-float"                      |
 |"<leader>nf"  | ":lua require('neogen').generate()<CR>"|
 
 

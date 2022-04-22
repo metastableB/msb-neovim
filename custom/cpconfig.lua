@@ -139,6 +139,13 @@ local cpconfig = {
     action = tbuiltin.lsp_document_symbols,
     helpstr = ":Telescope lsp_document_symbols",
   },
+  {
+    name = "Floating TODO notes (<ldr>-t)",
+    action = function()
+      ext = require "custom.plugins.myplugs"
+      ext.todofloat.toggle()
+    end
+  },
 }
 
 M.mastertable = cpconfig

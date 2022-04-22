@@ -1,3 +1,6 @@
+-- Simple helper functions/plugins written based on packer handled
+-- dependencies. We need this to be a plugin because we want it to only load
+-- after packer has been ensure-instaleed.
 local M = {}
 local initialized = false
 -- Library variables. Keep them nil to know where they are called from in case
@@ -44,7 +47,7 @@ todofloat.optionpicker = function(M)
     end)
     return true
   end
-  opts = todofloat.uiconfig()
+  opts = todofloat.uiconfig(opts)
   tscope.pickers.new(opts, {
     prompt_title = "Choices",
     finder = tscope.finders.new_table({
@@ -74,7 +77,8 @@ todofloat.__toggle = function()
   
 end
 
-todofloat.uiconfig = function()
+todofloat.uiconfig = function(opts)
+  opts = opts or {}
   local theme_opts = {
   --   theme = "dropdown",
     results_title = false,
@@ -92,20 +96,24 @@ todofloat.uiconfig = function()
       end
     },
   }
-  return theme_opts
+  return vim.tbl_deep_extend('force', opts, theme_opts)
 end
 
 
 todofloat.toggle = function()
   if todofloat.todofile ~= nil then
-    return eodofloat.__toggle()
+    return todofloat.__toggle()
   end
   -- We need go the option picker route
-  local cstr
+  local cwd
   local allc = {}
-  cstr = todofloat.find_todofile("~/Work/")
+  local cstr = todofloat.find_todofile(vim.fn.getcwd())
   for c in cstr:gmatch("[^\r\n]+") do
     table.insert(allc, c)
+  end
+  local cstr
+  if allc[1] == nil then
+    print("No TODO file found")
   end
   -- if len (candidates > 0) ask user
   candidate = allc[1]
@@ -124,9 +132,7 @@ dappalette.dappalette = function()
   tscope.extensions.custompalette.custompalette(nil, cpconfig.daptable)
 end
 
---------- END PLUGINS --------
-M.todofloat = todofloat
 M.setup()
-M.todofloat.toggle()
-
+M.todofloat = todofloat
+-- Get all the requires ready
 return M
