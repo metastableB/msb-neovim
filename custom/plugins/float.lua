@@ -16,7 +16,7 @@ end
 
 
 floatw.window_config = function(ui, width, height)
-    local border = vim.g.workbench_border or "double"
+    local border = vim.g.workbench_border or "rounded"
     return {
       relative = "editor",
       width = width,
@@ -24,7 +24,7 @@ floatw.window_config = function(ui, width, height)
       col = (ui.width - width) / 2,
       row = (ui.height - height) / 2,
       style = 'minimal',
-      focusable = false,
+      focusable = true,
       border = border
     }
 end
@@ -53,7 +53,7 @@ floatw.toggle = function(filepath)
     vim.api.nvim_call_function('setbufvar', {_bufnr, 'buflisted', '0'})
     buf_info = vim.api.nvim_call_function('getbufinfo', {_bufnr})[1]
   end
-  -- open the window
+  --   -- open the window
   local wc = floatw.window_config(ui, width, height)
   local win_id = vim.api.nvim_open_win(_bufnr, true, wc)
   vim.api.nvim_set_current_win(win_id)
