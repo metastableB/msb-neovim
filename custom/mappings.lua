@@ -18,3 +18,8 @@ map("n", "<leader>nf", ":lua require('neogen').generate()<CR>", opts)
 --map("n", "<leader>dc", ":lua require'dap'.continue()<CR>")
 --map("n", "<leader>dso", "lua require'dap'.step_over()<CR>")
 --map("n", "<leader>dsi", "lua require'dap'.step_into()<CR>")
+-- jtnoremap <C-h> <C-\><C-n><C-w>h
+-- tnoremap ([[<leader>h]],   [[<C-\><C-n><C-w>w]], silent) -- Cycle out of terminal
+-- tnoremap ([[<leader>H]],   [[<C-\><C-n><C-w>W]], silent) -- Cycle back out of terminal
+-- vim.api.nvim_set_keymap("t", "<leader>h", 'C-\C-nC-ww', { noremap = true })
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>',  {noremap = true})

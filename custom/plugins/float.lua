@@ -49,7 +49,7 @@ floatw.toggle = function(filepath)
   else
     -- Create a new empty buffer
     new_buf = true
-    _bufnr = vim.api.nvim_create_buf({true}, {false})
+    _bufnr = vim.api.nvim_create_buf({false}, {false})
     vim.api.nvim_call_function('setbufvar', {_bufnr, 'buflisted', '0'})
     buf_info = vim.api.nvim_call_function('getbufinfo', {_bufnr})[1]
   end
