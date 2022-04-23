@@ -1,4 +1,4 @@
-## Folding
+* Folding
 
 | Keybind    | Description                     |
 |------------|---------------------------------|
@@ -9,16 +9,18 @@
 |     z-r    |  decrease teh fold level by one |         
 |     zR:    | open everything                 |         
 
-## Custom Mappings
+* Custom Mappings
 
 | Keybind      | Description                            |
 |--------------|----------------------------------------|
 |"cp"          | ":Telescope custompalette <CR>"        |
 |"<leader>t"   | "Open todo-float"                      |
 |"<leader>nf"  | ":lua require('neogen').generate()<CR>"|
+|"<C-w>+"      | Increase split size                    |
+|"<C-w>-"      | Decrease split size                    |
 
 
-## Telescope 
+* Telescope 
 
 | Keybind      | Description                          |
 |--------------|--------------------------------------|
@@ -30,7 +32,7 @@
 | `<leader>th` | Theme picker                         |
 | `<leader>cp` | Custom palette                       |
 
-## Nvim-Tree (File explorers side-bar)
+* Nvim-Tree (File explorers side-bar)
 
 | Keybind | Description                               |
 |---------|-------------------------------------------|
@@ -50,7 +52,7 @@
 | `H`     | Toggle visibility of dot-items            |
 | `R`     | Refresh tree                              |
 
-## Vim-matchup 
+* Vim-matchup 
 
 | Keybind | Description                                 |
 |---------|---------------------------------------------|
@@ -59,7 +61,7 @@
 |   `]%`  | Go to the next surrounding close word       |
 |   `z%`  | Go inside the nearest inner contained block |
 
-## nvim-cmp
+* nvim-cmp
 
 | Keybind        | Description                                 |
 |----------------|---------------------------------------------|

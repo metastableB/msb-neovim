@@ -3,7 +3,7 @@ local tbuiltin = require "telescope.builtin"
 local textensions = require "telescope".extensions
 local floatw = require "custom.plugins.float"
 local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
-local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.lua"
+local cheatsheet_file = vimrc .. "lua/custom/cheatsheet.org"
 
 local M = {}
 -- Settings for dap 
