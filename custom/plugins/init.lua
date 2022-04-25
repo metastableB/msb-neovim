@@ -23,10 +23,6 @@ orgmode.orgmode = {
   'nvim-orgmode/orgmode',
   config = function()
     require('orgmode').setup_ts_grammar()
-    require('orgmode').setup({
-      org_agenda_files = {'~/org/agenda/*'},
-      org_default_notes_file = '~/org/default.org',
-    })
   end,
 }
 
@@ -56,7 +52,9 @@ local custompalette = {
   config = function()
     -- local cpconfig = require("custom.cpconfig")
     ext = require('telescope').load_extension('custompalette')
-    config = require('custom.cpconfig')
+    config = {} -- require('custom.cpconfig')
+    config.mastertable = {
+	    name = 'HELLO'}
     ext.setup(config.mastertable)
   end,
 }
@@ -114,13 +112,13 @@ local M = {
   spellsitter,
   orgmode.orgmode,
   orgmode.orgbullets,
-  custompalette,
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
   neogen,
-  trouble
+  trouble,
   -- pyfold, kind of ugly
   -- dap.dap,
   -- dap.telescope
+  -- custompalette, TODO: Do not enable. There is some bug i need to figure out
 }
 return M
