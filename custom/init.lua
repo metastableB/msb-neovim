@@ -57,10 +57,10 @@ vim.o.textwidth = 79
 
 -- Spell-check
 -- Vim native spell check highlighting has conflicts with tree-sitter. We thus
--- use spellsitter, an extra plugin to make spell checks visible. We dont need
--- to enable these for spell-checking.
--- vim.o.spell = true
--- vim.o.spelllang = "en_us"
+-- use spellsitter, an extra plugin to make spell checks visible. Line still
+-- useful for non-tree-sitter handled cases.
+vim.o.spell = true
+vim.o.spelllang = "en_us"
 
 -- Folding: 
 -- Tree sitter based folding. We are going to use expression based folding
