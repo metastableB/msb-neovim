@@ -22,6 +22,7 @@ local orgmode = {}
 orgmode.orgmode = {
   'nvim-orgmode/orgmode',
   config = function()
+    require('orgmode').setup()
     require('orgmode').setup_ts_grammar()
   end,
 }
@@ -39,25 +40,50 @@ orgmode.orgbullets = {
     })
   end,
 }
+--
+--
+-- Neo-org: Better orgmode
+-- local neoorg = {}
+-- neoorg.neoorg = {
+-- "nvim-neorg/neorg",
+--     config = function()
+--         require('neorg').setup { load = {
+--           ["core.defaults"] = {},
+--           ["core.gtd.base"] = {},
+--           ["core.norg.completion"] = {},
+--           ["core.norg.concealer"] = {},
+--           ["core.norg.qol.toc"] = {},
+--           ["core.norg.dirman"] = {
+--               config = {
+--                   workspaces = {
+--                       ocodistill = "~/Work/ocodistill",
+--                       tensordx = "~/Work/tensordx",
+--                   }
+--               }
+--           }
+--         }}end,
+--     requires = "nvim-lua/plenary.nvim"
+-- }
+
 
 -- Custom command palette
 ---------
 -- We need to specify absolute path. Remove init.lua
-local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
-local pluginroot = vimrc .. "lua/custom/plugins/"
-local pluginpath = pluginroot .. "custompalette/"
-local custompalette = {
-  pluginpath,
-  as = 'custompalette',
-  config = function()
-    -- local cpconfig = require("custom.cpconfig")
-    ext = require('telescope').load_extension('custompalette')
-    config = {} -- require('custom.cpconfig')
-    config.mastertable = {
-	    name = 'HELLO'}
-    ext.setup(config.mastertable)
-  end,
-}
+-- local vimrc = string.sub(os.getenv("MYVIMRC"), 1, -9)
+-- local pluginroot = vimrc .. "lua/custom/plugins/"
+-- local pluginpath = pluginroot .. "custompalette/"
+-- local custompalette = {
+--   pluginpath,
+--   as = 'custompalette',
+--   config = function()
+--     -- local cpconfig = require("custom.cpconfig")
+--     ext = require('telescope').load_extension('custompalette')
+--     config = {} -- require('custom.cpconfig')
+--     config.mastertable = {
+-- 	    name = 'HELLO'}
+--     ext.setup(config.mastertable)
+--   end,
+-- }
 
 
 -- Neogen 
@@ -107,11 +133,12 @@ local trouble = {
 --
 -- Pack and Ship all plugins
 local M = {
+  orgmode.orgmode,
+  orgmode.orgbullets,
   pep8indent,
   bufdelete,
   spellsitter,
-  orgmode.orgmode,
-  orgmode.orgbullets,
+  -- -- neoorg.neoorg,
   lightspeed.vimrepeat,
   lightspeed.lightspeed,
   neogen,
