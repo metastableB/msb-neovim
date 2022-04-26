@@ -8,7 +8,7 @@ local spellsitter = {
   'lewis6991/spellsitter.nvim',
   config = function()
     require('spellsitter').setup({
-            enable=true,
+      enable=true,
     })
   end,
 }
