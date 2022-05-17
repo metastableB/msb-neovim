@@ -47,3 +47,12 @@ local utils = require "utils"
 vim.g.mapleader = "<Space>"
 -- This will be applied as part of some plugin other.
 utils.addusermap("n", "th", ":lua require('utils').cycle_theme()<cr>")
+
+-- Spaces and Tabs
+-- -------------
+vim.o.tabstop = 4  -- number of visual spaces per TAB
+vim.o.softtabstop = 4 
+vim.o.shiftwidth = 4 --  number of spaces in tab when editing
+vim.o.expandtab = true -- tabs are spaces
+vim.o.autoindent = true
+vim.o.copyindent = true -- copy from previous line
