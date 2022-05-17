@@ -59,7 +59,6 @@ class Config:
         self.xdg_data_dir = f
         # Absolute paths set during installation
         self.ap_nvim = None
-        self.ap_nvchad = None
         self.ap_ripgrep = None
         self.ap_fd = None
 
@@ -216,6 +215,14 @@ def setup_neovim_appimg(cfg, overwrite=False):
         os.chmod(exe, st.st_mode | stat.S_IEXEC) 
         lg.info("Linux: Nvim appimage setup done")
 
+def setup_custom_config(cfg, overwrite=False):
+    lg.info("Copying custom configuration")
+    outf = os.path.join(cfg.xdg_config_dir, 'nvim/')
+    lg.info("Copying custom configurations")
+    if os.path.exists(outf):
+        lg.warning("Existing custom settings found. Replacing it.")
+        shutil.rmtree(outf)
+    shutil.copytree('./nvimconfig/', outf)
 
 def create_entry_script(cfg):
     rcfile = os.path.join(cfg.install_dir, cfg.RC_FILE_NAME)
@@ -235,8 +242,11 @@ function lmotive {{
     # write to settings file
     with open(rcfile, 'w') as f:
         print(template, file=f)
-    lg.info("Source the rcfile in your bashrc" + "\n" +
+    lg.info("1. Source the rcfile in your bashrc" + "\n" +
             f'\t\tsource "{rcfile}"')
+    lg.info("2. Bootstrap packer and install plugins" + "\n" +
+            "\t\tlmotive --headless -c 'autocmd User PackerComplete quitall'" +
+            "-c 'PackerSync'")
     # lg.info("2. Install a patched nerd-font and set it as the font for you")
     # lg.info(" terminal emulator.")
     # msg = "3. Install the plugins by running:\n"

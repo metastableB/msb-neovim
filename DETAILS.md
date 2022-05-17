@@ -1,3 +1,51 @@
+# Plugin and Configuration Documentation
+
+
+## Basic Plugins
+
+### Packer: Package Management
+
+Since our design goal is to be portable, we will attempt to restrict ourselves
+to plugins that do not depend on external programs. We will use packer manage
+installed plugins.
+
+
+**LSP, Completion etc**
+  - nvim-cmp
+  - *nvim-lspconfig*: A collection of common configurations for Neovim's built-in
+    language server client. This plugin allows for declaratively configuring,
+    launching, and initializing language servers you have installed on your
+    system.
+  - *nvim-cmp*: A completion engine plugin for neovim written in Lua. Completion
+    sources are installed from external repositories and "sourced".
+  - *lsp-signature.nvim*: Show function signature when you type.
+  - *lspkind.nvim*: Adds pictograms to neovim built-in lsp completion items window.
+
+
+
+**QoL Plugins**
+
+  - Buffline: Buffer and minimal-tab handling
+  - Vim-matchup
+  - *dashboard-nvim* (disabled): Provides an welcome dashboard with options to
+  open existing files, previous sessions etc. Keeping it disabled for now
+  - *feline.nvim*: Statusline plugin with good defaults
+  - *blankline*: Adds indent lines to neovim indents
+  - *nvim-base16.lua*: Manages syntax colorscheme
+  - *nvim-colorizer.lua*: Colors inline hex codes and such
+  - *nvim-webdev-icons*: Allows changing color of icons.
+  - *gitsigns.nvim*: Super fast git decorations (the bars on the sides of files
+      showing changes) implemented purely in lua/teal.
+  - *nvim-opairs*: Handle character pairs (braces, parenthesis, ..)
+  - *nvim-comment*: Toggles comments `<leader>/`
+  - bufdelete
+  - vim-python-pep8-indent
+  - spellsitter
+  - nvim-orgmode
+
+
+
+
 # Plugin Documentation
 
 We ship with a bunch of plugins already, and we install a few other through

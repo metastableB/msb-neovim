@@ -23,22 +23,23 @@ M.treesitter = {
    }
 }
 
-M.nvimtree = {
-   git = {
+M.nvimtree = function ()
+  require'nvim-tree'.setup {
+     view = {
+       hide_root_folder = false,
+       preserve_window_proportions = true,
+       side = 'left',
+     },
+      update_focused_file = {
       enable = true,
-      ignore = true,
-   },
-   view = {
-     hide_root_folder = false,
-     preserve_window_proportions = true,
-     side = 'left',
-   },
-    lazy_load = true,
-    update_focused_file = {
-    enable = false,
-    update_cwd = true,
-    ignore_list = {},
-   }
-}
+      update_cwd = true,
+      ignore_list = {},
+     }
+    git = {
+        enable = true,
+        ignore = true,
+     },
+  }
+end
 
 return M

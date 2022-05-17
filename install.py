@@ -29,6 +29,7 @@ helpers.setup_dirs(cfg)
 # STEP 2: Setting up neovim appimage. The `nvim_exe_path` attribute of config
 # is set with the executable path for neovim.
 helpers.setup_neovim_appimg(cfg)
+helpers.setup_custom_config(cfg)
 assert os.path.exists(cfg.ap_nvim)
 helpers.create_entry_script(cfg)
 # helpers.setup_ripgrep(cfg)
