@@ -1,5 +1,9 @@
 -- This is the entry point for all custom configurations.
 require "plugins"
+
+local utils = require "utils"
+
+
 -- require "custom.mappings"
 -- require "custom.autocmds"
 --
@@ -35,3 +39,8 @@ require "plugins"
 --
 -- -- Jumplist: Make it behave like tags (natural). (Only neovim)
 -- vim.o.jumpoptions = vim.o.jumpoptions .. "stack"
+--
+
+-- Remapping Leader to Space
+vim.g.mapleader = "<Space>"
+utils.applymaps()

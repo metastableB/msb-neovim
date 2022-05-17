@@ -1,7 +1,9 @@
 -- Plugin Settings.
 -- 
 -- In the init file, we define the plugins we want packer to load and handle.
--- Note that we have boot-strap facility for packer. Run:
+-- Settings are defined separately in their on respective files. See
+-- configs.lua for an example settings file. Note that we have boot-strap
+-- facility for packer. Run:
 --      nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 -- Currently the bootstrapping is a little buggy and I haven't been able to
 -- figure out why. Running PackerSync from within nvim is probably better.
@@ -18,7 +20,16 @@ local nvimtree = {
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     },
     -- tag = 'nightly', -- optional, updated every week. (see issue #1193)
-    run = configs.nvimtree,
+    config = configs.nvimtree,
+}
+-- EXTERNAL DEPENDENCIES: fd, ripgrep
+local telescope = {
+  'nvim-telescope/telescope.nvim',
+  requires = {
+	  {'nvim-lua/plenary.nvim'},
+	  {'kyazdani42/nvim-web-devicons' }
+  },
+  config = configs.telescope,
 }
 
 
@@ -28,6 +39,7 @@ local M = {}
 M.plugins = {
   packer,
   nvimtree,
+  telescope,
 }
 
 
@@ -47,7 +59,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Install the plugins
-require('packer').startup(function(use)
+return require('packer').startup(function(use)
   -- Install plugins provided in M.plugins
   for k, plugin in pairs(M.plugins) do
     use(plugin)
