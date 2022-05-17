@@ -3,11 +3,18 @@
 
 ## Basic Plugins
 
-### Packer: Package Management
+1. Packer
+2. Nvim-tree
+3. Telescope (Uses external executables that are installed by setup.sh)
 
-Since our design goal is to be portable, we will attempt to restrict ourselves
-to plugins that do not depend on external programs. We will use packer manage
-installed plugins.
+## QoL Plugins
+  - Buffline: Buffer and minimal-tab handling
+  - Alpha.nvim: Dashboard
+  - *feline.nvim*: Statusline plugin with good defaults
+  - *blankline*: Adds indent lines to neovim indents
+  - *nvim-webdev-icons*: Allows changing color of icons.
+  - *gitsigns.nvim*: Super fast git decorations (the bars on the sides of files
+      showing changes) implemented purely in lua/teal.
 
 
 **LSP, Completion etc**
@@ -25,17 +32,9 @@ installed plugins.
 
 **QoL Plugins**
 
-  - Buffline: Buffer and minimal-tab handling
   - Vim-matchup
-  - *dashboard-nvim* (disabled): Provides an welcome dashboard with options to
-  open existing files, previous sessions etc. Keeping it disabled for now
-  - *feline.nvim*: Statusline plugin with good defaults
-  - *blankline*: Adds indent lines to neovim indents
   - *nvim-base16.lua*: Manages syntax colorscheme
   - *nvim-colorizer.lua*: Colors inline hex codes and such
-  - *nvim-webdev-icons*: Allows changing color of icons.
-  - *gitsigns.nvim*: Super fast git decorations (the bars on the sides of files
-      showing changes) implemented purely in lua/teal.
   - *nvim-opairs*: Handle character pairs (braces, parenthesis, ..)
   - *nvim-comment*: Toggles comments `<leader>/`
   - bufdelete

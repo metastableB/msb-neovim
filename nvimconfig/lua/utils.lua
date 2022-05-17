@@ -20,7 +20,21 @@ function applymaps()
 	end
 end
 
+function cycle_theme()
+	local base16 = require'base16'
+	if M.themes == nil then 
+		local theme_names = base16.theme_names()
+		M.themes = {}
+		M.themes.theme_names = theme_names
+		M.themes.b16_position = 1
+	end
+	M.themes.b16_position = (M.themes.b16_position % #M.themes.theme_names) + 1
+	local name = M.themes.theme_names[M.themes.b16_position]
+	base16(base16.themes[name], true)
+	print("Theme: " .. name)
+end
 
 M.addusermap = addusermap
 M.applymaps = applymaps
+M.cycle_theme = cycle_theme
 return M

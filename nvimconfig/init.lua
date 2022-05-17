@@ -41,6 +41,9 @@ local utils = require "utils"
 -- vim.o.jumpoptions = vim.o.jumpoptions .. "stack"
 --
 
+-- Mappings
+-- --------
 -- Remapping Leader to Space
 vim.g.mapleader = "<Space>"
-utils.applymaps()
+-- This will be applied as part of some plugin other.
+utils.addusermap("n", "th", ":lua require('utils').cycle_theme()<cr>")

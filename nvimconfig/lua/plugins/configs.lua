@@ -39,27 +39,37 @@ M.telescope = function()
 end
 
 
+-- Bufferline
+M.bufferline = function()
+	vim.opt.termguicolors = true
+	require("bufferline").setup{
+	}
+end
+
+
 -- overriding default plugin configs!
-M.treesitter = {
-   ensure_installed = {
-      "lua",
-      "vim",
-      "html",
-      "css",
-      "javascript",
-      "json",
-      "markdown",
-      "bash",
-      "python",
-      "org",
-      "latex",
-   },
-   -- These are for nvim-orgmode plugin
-   highlight = {
-     enable = true,
-     disable = {'org'},
-     additional_vim_regex_highlighting = {'org'}
-   }
-}
+M.treesitter = function()
+	require'nvim-treesitter.configs'.setup {
+	   ensure_installed = {
+	      "lua",
+	      "vim",
+	      "html",
+	      "css",
+	      "javascript",
+	      "json",
+	      "markdown",
+	      "bash",
+	      "python",
+	      "org",
+	      "latex",
+	   },
+	   -- These are for nvim-orgmode plugin
+	   highlight = {
+	     enable = true,
+	     disable = {'org'},
+	     additional_vim_regex_highlighting = {'org'}
+	   }
+	}
+end
 
 return M
