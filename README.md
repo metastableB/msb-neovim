@@ -1,7 +1,7 @@
 # MSB-Neovim
 
-My neovim configurations files and installation scripts for OSX and UNIX/
-Bash-WSL2. An attempt at making this portable.
+A portable set of defaults for `neovim` that works from user-space. Tested on
+WSL2.
 
 # Installation
 
@@ -9,15 +9,8 @@ Clone this repository to your local machine. Open the folder in a terminal with
 bash execute the following commands.
 
 ```
-./setup.sh  
-source ./.venv-nvim-setup/bin/activate
-python3 install.py
+./install.sh  
 ```
-
-The `setup.sh` script will create a virtual-environment in the package
-directory. After sourcing this with the second command, the install script in
-the third command will setup neovim and configurations to run out of this
-directory. 
 
 ## Post-Install Notes
 

@@ -1,14 +1,25 @@
 #!/bin/bash
-VENV_NAME="./.venv-nvim-setup"
-echo -e "Creating virtual environment for installation"
-python3 -m venv "$VENV_NAME"
-if [ $? -ne 0 ]; then 
-    echo -e "Failed to create install environment. Existing";
-    exit 1;
-fi
-source "$VENV_NAME/bin/activate"
-pip install requests
+VENV_NAME="./.venv-lmotive"
 
-echo -e "Done."
-echo -e "Before running install.py, please source the environment with"
-echo -e "\tsource $VENV_NAME/bin/activate"
+if [ -d "$VENV_NAME" ]; then
+  echo "Virtual environment found: $VENV_NAME"
+  echo "Will be reused. Delete the folder to create new one."
+else
+  echo -e "Creating virtual environment for installation"
+  python3 -m venv "$VENV_NAME"
+  if [ $? -ne 0 ]; then 
+      echo -e "Failed to create install environment. Existing";
+      exit 1;
+  fi
+  source "$VENV_NAME/bin/activate"
+  pip install requests
+  echo -e "Done."
+fi
+
+function install {
+  source "$VENV_NAME/bin/activate"
+  python install.py
+}
+
+install
+
