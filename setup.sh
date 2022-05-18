@@ -6,7 +6,7 @@ if [ -d "$VENV_NAME" ]; then
   echo "Will be reused. Delete the folder to create new one."
 else
   echo -e "Creating virtual environment for installation"
-  python3 -m venv "$VENV_NAME"
+  virtualenv -p python3 "$VENV_NAME"
   if [ $? -ne 0 ]; then 
       echo -e "Failed to create install environment. Existing";
       exit 1;

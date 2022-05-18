@@ -120,7 +120,7 @@ local spellsitter = {
 
 -- Lightspeed (movement)
 local lightspeed = {'ggandor/lightspeed.nvim', requires={'tpope/vim-repeat'}}
-local pep8indent = {''Vimjas/vim-python-pep8-indent'}
+local pep8indent = {'Vimjas/vim-python-pep8-indent'}
 
 -- Tab and buffer handling
 local bufferline = {
