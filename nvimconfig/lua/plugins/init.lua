@@ -42,11 +42,74 @@ local treesitter = {
 -- ------------- --
 -- QoL Plugins   --
 -- ------------- --
+-- Spellsitter: Spellcheck for treesitter
+local spellsitter = {
+  'lewis6991/spellsitter.nvim',
+  config = function()
+    require('spellsitter').setup({
+      enable=true,
+    })end
+}
+
+-- Lightspeed (movement)
+local lightspeed = {'ggandor/lightspeed.nvim', requires={'tpope/vim-repeat'}}
+
+-- Tab and buffer handling
 local bufferline = {
 	'akinsho/bufferline.nvim', 
 	tag = "v2.*", 
 	requires = 'kyazdani42/nvim-web-devicons',
  	config = configs.bufferline
+}
+
+-- Nvim-treesitter-pyfold: Better folding defaults.
+local pyfold = {
+  'eddiebergman/nvim-treesitter-pyfold',
+  config = function()
+    require('nvim-treesitter.configs').setup{
+      pyfold = {
+        enable = true,
+        custom_foldtext = true
+      },
+    }
+  end
+}
+
+-- Orgmode and helper plugins
+local orgmode = {}
+orgmode.orgmode = {
+    'nvim-orgmode/orgmode',
+    config = function()
+        require('orgmode').setup()
+        require('orgmode').setup_ts_grammar()
+    end,
+}
+
+orgmode.orgbullets = {
+  'akinsho/org-bullets.nvim',
+  config = function()
+    require('org-bullets').setup({
+      symbols = { "◉", "○", "✸", "✿" },
+      -- -- or a function that receives the defaults and returns a list
+      -- symbols = function(default_list)
+      --   table.insert(default_list, "♥")
+      --   return default_list
+      -- end
+    })
+  end,
+}
+
+-- Trouble
+-- Better error display in bottom float
+local trouble = {
+"folke/trouble.nvim",
+  requires = "kyazdani42/nvim-web-devicons",
+  config = function()
+    require("trouble").setup {
+      -- automatically preview the location of the diagnostic. <esc> to
+      -- close preview and go back to last window
+    }
+  end,
 }
 -- a dashboard
 local alphanvim = {
@@ -113,12 +176,18 @@ M.plugins = {
   treesitter,
   telescope,
 
+  spellsitter,
+  lightspeed,
   bufferline,
+  pyfold,
+  orgmode.orgmode,
+  orgmode.orgbullets,
+  trouble,
   alphanvim,
   feline,
   blanklines,
-  gitsigns,
   toggleterm,
+  gitsigns,
   comment,
   base16theme
 }

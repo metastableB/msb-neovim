@@ -46,8 +46,6 @@ M.bufferline = function()
 	}
 end
 
-
--- overriding default plugin configs!
 M.treesitter = function()
 	require'nvim-treesitter.configs'.setup {
 	   ensure_installed = {
