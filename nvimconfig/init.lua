@@ -7,6 +7,8 @@ local utils = require "utils"
 vim.g.mapleader = "<Space>"
 -- This will be applied as part of some plugin other.
 utils.addusermap("n", "th", ":lua require('utils').cycle_theme()<cr>")
+-- Escape in terminal mode
+utils.addusermap("t", "<Esc>", '<C-\\><C-n>', {noremap = true})
 
 ---------------------
 -- Global Settings -- 
@@ -80,3 +82,8 @@ vim.o.shiftwidth = 4 --  number of spaces in tab when editing
 vim.o.expandtab = true -- tabs are spaces
 vim.o.autoindent = true
 vim.o.copyindent = true -- copy from previous line
+
+-- Theme
+-- ------ 
+vim.cmd('colorscheme material')
+vim.g.material_style = "deep ocean"

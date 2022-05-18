@@ -9,6 +9,7 @@
 -- figure out why. Running PackerSync from within nvim is probably better.
 
 local configs = require 'plugins.configs'
+local cmpconfigs = require 'plugins.cmpconfigs'
 local M = {}
 
 -- ------------- --
@@ -37,6 +38,72 @@ local telescope = {
 local treesitter = {
 	'nvim-treesitter/nvim-treesitter',
 	config = configs.treesitter,
+}
+
+-- Nvim Cmp
+-- Completing engine and completion sources
+--
+local nvimcmp = { 
+    -- completion engine
+    'hrsh7th/nvim-cmp',
+    requires = {
+        -- Common LSP configurations
+        'neovim/nvim-lspconfig',
+        -- Nvim-cmp-lsp. Source for built in lsp
+        'hrsh7th/cmp-nvim-lsp',
+        -- Sources from buffer
+        'hrsh7th/cmp-buffer',
+        -- Sources for path
+        'hrsh7th/cmp-path',
+        -- sorces from cmds
+        'hrsh7th/cmp-cmdline',
+
+        -- Snippet engine
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
+
+        -- Icons
+        'onsails/lspkind.nvim',
+    },
+
+    config = cmpconfigs.setup_nvimcmp,
+}
+
+-- -----------------------
+-- LSP and Related Stuff
+-- ---------------------
+--
+--
+-- Null-ls:  Neovim doesn't provide a way for non-LSP sources to hook into its
+-- LSP client. null-ls is an attempt to bridge that gap and simplify the
+-- process of creating, sharing, and setting up LSP sources using pure Lua.
+local nullls = {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = {
+	  {'nvim-lua/plenary.nvim'},
+    },
+    config = function()
+        require("null-ls").setup({
+            sources = {
+                require("null-ls").builtins.formatting.stylua,
+                require("null-ls").builtins.diagnostics.eslint,
+                require("null-ls").builtins.completion.spell,
+            },
+        })
+    end
+}
+
+-- Nvim-LSP-Installer
+-- Neovim plugin that allows you to manage LSP servers (servers are installed
+-- inside :echo stdpath("data") by default). It works in tandem with lspconfig1
+-- by registering a hook that enhances the PATH environment variable, allowing
+-- neovim's LSP client to locate the installed server executable.2
+local lspinstaller = {
+    "neovim/nvim-lspconfig",
+    requires = {"williamboman/nvim-lsp-installer",},
+    config = function()
+        require("nvim-lsp-installer").setup {}
+    end
 }
 
 -- ------------- --
@@ -116,11 +183,15 @@ local alphanvim = {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function ()
-	require'alpha'.setup(require'alpha.themes.dashboard'.config)
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
 }
 -- Status line at the bottom of page
-local feline = {'feline-nvim/feline.nvim'}
+local feline = {'feline-nvim/feline.nvim', 
+    config = function()
+        require('feline').setup()
+    end
+}
 
 -- Indent-blank lines (vertical indent lines)
 local blanklines = {
@@ -159,13 +230,30 @@ local comment = {
     end
 }
 
--- Base16 themes
-local base16theme = {
+-- Base16 themes and material themes. Set theme here.
+local themes = {
 	"norcalli/nvim-base16.lua",
+	"marko-cerovac/material.nvim",
+	-- Different pluings have different ways of starting the theme.
 	config = function()
-		base16 = require 'base16'
-		base16(base16.themes.brewer, true)
+		-- base16 = require 'base16'
+		-- base16(base16.themes.brewer, true)
+		-- Material
+        require('material').setup()
 	end
+}
+
+-- Material theme
+local 
+cal
+
+-- FixCurserHold: better cursor hold event behaviour. Should lead to faster
+-- texts. 
+local fixcursorhold = {
+    'antoinemadec/FixCursorHold.nvim',
+    config = function()
+        vim.g.cursorhold_updatetime = 100
+    end
 }
 
 -- Plugins to Install
@@ -175,6 +263,9 @@ M.plugins = {
   nvimtree,
   treesitter,
   telescope,
+  nvimcmp,
+  nullls,
+  lspinstaller,
 
   spellsitter,
   lightspeed,
@@ -189,7 +280,8 @@ M.plugins = {
   toggleterm,
   gitsigns,
   comment,
-  base16theme
+  themes,
+  fixcursorhold,
 }
 
 -- Bootstrap packer, install plugins if required, and return.
