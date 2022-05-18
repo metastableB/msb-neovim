@@ -86,4 +86,8 @@ vim.o.copyindent = true -- copy from previous line
 -- Theme
 -- ------ 
 vim.cmd('colorscheme material')
-vim.g.material_style = "deep ocean"
+vim.g.material_style = "Darker"
+
+-- Line number
+-- ---------
+vim.o.number = true
