@@ -12,6 +12,62 @@ local configs = require 'plugins.configs'
 local cmpconfigs = require 'plugins.cmpconfigs'
 local M = {}
 
+-- -----------------------
+-- LSP and Related Stuff
+-- ---------------------
+--
+--
+-- Null-ls:  Neovim doesn't provide a way for non-LSP sources to hook into its
+-- LSP client. null-ls is an attempt to bridge that gap and simplify the
+-- process of creating, sharing, and setting up LSP sources using pure Lua.
+local nullls = {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = {
+	  {'nvim-lua/plenary.nvim'},
+    },
+    config = function()
+        local null_ls = require("null-ls")
+        null_ls.setup({
+            sources = {
+                -- Some prose lint
+                null_ls.builtins.code_actions.proselint,
+                -- Bash (.sh)
+                null_ls.builtins.code_actions.shellcheck,
+                -- Latex
+                null_ls.builtins.diagnostics.chktex,
+                -- Some python
+                -- disable flake8; annoying set of errors that aren't really
+                -- errors.
+                -- null_ls.builtins.diagnostics.flake8,
+                null_ls.builtins.diagnostics.pylint
+            },
+        })
+    end
+}
+
+-- Nvim-LSP-Installer
+-- This needs to be called before nvim-lspconfig is configured by packer.
+-- Neovim plugin that allows you to manage LSP servers (servers are installed
+-- inside :echo stdpath("data") by default). It works in tandem with lspconfig1
+-- by registering a hook that enhances the PATH environment variable, allowing
+-- neovim's LSP client to locate the installed server executable.2
+local lspinstaller = {
+    "neovim/nvim-lspconfig",
+    requires = {"williamboman/nvim-lsp-installer",},
+    config = function()
+        require("nvim-lsp-installer").setup {}
+        local lspconfigs = require 'plugins.lspconfig'
+        lspconfigs.setup_lsp()
+    end
+}
+
+local lspsignature = {
+     "ray-x/lsp_signature.nvim",
+     config = function()
+        require "lsp_signature".setup{}
+    end
+}
+
 -- ------------- --
 -- Basic Plugins --
 -- ------------- --
@@ -69,42 +125,6 @@ local nvimcmp = {
     config = cmpconfigs.setup_nvimcmp,
 }
 
--- -----------------------
--- LSP and Related Stuff
--- ---------------------
---
---
--- Null-ls:  Neovim doesn't provide a way for non-LSP sources to hook into its
--- LSP client. null-ls is an attempt to bridge that gap and simplify the
--- process of creating, sharing, and setting up LSP sources using pure Lua.
-local nullls = {
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = {
-	  {'nvim-lua/plenary.nvim'},
-    },
-    config = function()
-        require("null-ls").setup({
-            sources = {
-                require("null-ls").builtins.formatting.stylua,
-                require("null-ls").builtins.diagnostics.eslint,
-                require("null-ls").builtins.completion.spell,
-            },
-        })
-    end
-}
-
--- Nvim-LSP-Installer
--- Neovim plugin that allows you to manage LSP servers (servers are installed
--- inside :echo stdpath("data") by default). It works in tandem with lspconfig1
--- by registering a hook that enhances the PATH environment variable, allowing
--- neovim's LSP client to locate the installed server executable.2
-local lspinstaller = {
-    "neovim/nvim-lspconfig",
-    requires = {"williamboman/nvim-lsp-installer",},
-    config = function()
-        require("nvim-lsp-installer").setup {}
-    end
-}
 
 -- ------------- --
 -- QoL Plugins   --
@@ -121,6 +141,12 @@ local spellsitter = {
 -- Lightspeed (movement)
 local lightspeed = {'ggandor/lightspeed.nvim', requires={'tpope/vim-repeat'}}
 local pep8indent = {'Vimjas/vim-python-pep8-indent'}
+local autopairs = {
+    'windwp/nvim-autopairs',
+    config = function()
+        require('nvim-autopairs').setup{}
+    end
+}
 
 -- Tab and buffer handling
 local bufferline = {
@@ -232,6 +258,7 @@ local comment = {
 }
 
 -- Base16 themes and material themes. Set theme here.
+
 local themes = {
 	"norcalli/nvim-base16.lua",
 	"marko-cerovac/material.nvim",
@@ -245,8 +272,6 @@ local themes = {
 }
 
 -- Material theme
-local 
-cal
 
 -- FixCurserHold: better cursor hold event behaviour. Should lead to faster
 -- texts. 
@@ -267,6 +292,7 @@ M.plugins = {
   nvimcmp,
   nullls,
   lspinstaller,
+  lspsignature,
 
   spellsitter,
   lightspeed,
@@ -284,6 +310,7 @@ M.plugins = {
   themes,
   fixcursorhold,
   pep8indent, 
+  autopairs
 }
 
 -- Bootstrap packer, install plugins if required, and return.
